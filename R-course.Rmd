@@ -1,0 +1,108 @@
+---
+title: "R for beginners Notebook"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------
+
+## Workshop Overview:
+In this workshop, participants will learn how to use R for data analysis. We will start from the basics, by first introducing participants to the fundamentals of R programming such as variables and conditional statements. They will also learn how to visualize data beautifully using R. Building upon this, participants will perform a statistical analysis of real biological data.
+During the course, we will provide interactive lessons which will include a theoretical understanding of R programming and hands-on coding. Participants will be able to write and work with real code. With the gained knowledge, participants will be ready to take their very own first step in data analysis using R. 
+
+
+## Learning Objectives:
+Upon completion of the workshop, the learner will be able to:
+
+* Define the basic R data-types and structures
+* Plot data in R
+* Analyze a dataset in R using biostatistical methods
+* Apply their gained knowledge to evaluate a dataset
+
+
+## Syllabus:
+
+* Introduction to R
+    + Why R and a brief history
+    + install and run Rstudio
+    + Saving and running R scripts
+
+* R data-types and structures
+    + Variables types and creating variables
+    + Vectors, Data frames, Matrices and Lists
+    + If else, for loop etc.
+    + Functions
+
+* Plotting data in R
+    + Scatter plot, line plot, bar plots, boxplots etc.
+    + Specifying color in the plot
+    + Saving plots for publication
+
+* Downloading and installing R packages
+    + CRAN, Bioconductor and github
+    + Getting help 
+
+* Read and write data in R
+    + Read and write CSV, xlsx etc.
+    + Save data in RDS etc.
+
+* Biostatistics and data analysis
+    + T-test, Wilcoxon test (non-parametric) etc.
+    + Correlation analyses
+
+
+* Visualization of results
+
+* The Do's and Don'ts of R
+    + Memory in R
+    + Factor vs character
+    + Tips and tricks 
+
+* Short data analysis project
+    + Read the data in R
+    + Performs analysis 
+    + Visualization of results
+
+
+
+## Introduction to R
+
+### What is R programming language
+
+### Why is it an important language to learn?
+
+### Installing Rstudio
+
+
+## R data-types and structures
+
+### Variables
+A named container or storage that is used to reference a value in the code.
+
+* Constraints on names:
+    + must starts with a letter or a dot not followed by a number.
+    + can only contain letters, numbers, underscore and the dot character "."
+    
+    ```{r}
+      a = 10
+      b = 12
+      a+b
+      barplot(c(a,b))
+    ```
+
+### Vectors
+
+### Dataframe
+
+### List
+
+
+
+
+
