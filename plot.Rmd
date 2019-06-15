@@ -1,0 +1,313 @@
+---
+title: "Plot"
+author: ""
+date: '2018-10-14'
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+# Plots
+## Plots
+
+Plotting in R is easy:
+
+```{r}
+x = 1:10
+y = x**2
+plot(x, y)
+```
+
+
+## Plot 
+
+Give plot a title
+```{r}
+plot(x, y)
+```
+
+
+## Plot 
+
+Lets change color
+```{r}
+plot(x, y, col = "red")
+```
+
+## Plot 
+
+Lets change point type
+```{r}
+plot(x, y, pch = 19)
+```
+
+## PCH 
+
+PCH (plotting character) is argument to specify point shapes
+
+```{r, echo=FALSE, message=FALSE}
+d = data.frame(p = c(0:25))
+p <- ggplot() + scale_y_continuous(name = "") + scale_x_continuous(name = "")
+p <- p + scale_shape_identity()
+p <- p + geom_point(data = d, mapping = aes(x = p%%6, y = p%/%6, shape = p), 
+                    size = 5, fill = "#91bfdb", color="black")
+
+p <- p + geom_text(data = d, mapping = aes(x = p%%6, y = p%/%6 + 0.25, label = p),
+                   size = 3) + scale_y_reverse()
+p+theme_void()
+```
+
+## PCH 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-4c4e{color:#3531ff;border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <td class="tg-4c4e">pch = 0, square</td>
+    <td class="tg-4c4e">pch = 13, circle cross</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 1, circle</td>
+    <td class="tg-4c4e">pch = 14, square and triangle down</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 2, triangle point up</td>
+    <td class="tg-4c4e">pch = 15, filled square</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 3, plus</td>
+    <td class="tg-4c4e">pch = 16, filled circle</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 4, cross</td>
+    <td class="tg-4c4e">pch = 17, filled triangle point-up</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 5, diamond</td>
+    <td class="tg-4c4e">pch = 18, filled diamond</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 6, triangle point down</td>
+    <td class="tg-4c4e">pch = 19, solid circle</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 7, square cross</td>
+    <td class="tg-4c4e">pch = 20, bullet (smaller circle)</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 8, star</td>
+    <td class="tg-4c4e">pch = 21, filled circle blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 9, diamond plus</td>
+    <td class="tg-4c4e">pch = 22, filled square blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 10, circle plus</td>
+    <td class="tg-4c4e">pch = 23, filled diamond blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 11, triangles up and down</td>
+    <td class="tg-4c4e">pch = 24, filled triangle point-up blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 12, square plus</td>
+    <td class="tg-4c4e">pch = 25, filled triangle point down blue</td>
+  </tr>
+</table>
+
+
+## Plot 
+
+For PCH 21 to 25, background color can be specified
+```{r}
+plot(x, y, pch = 24, col="red", bg="green")
+```
+
+
+## Task
+
+- plot data points in your favoriout color and shape
+
+
+
+## Plot Line
+
+The option `"type"` can change the plot type
+```{r}
+plot(x, y, type = "l")
+```
+
+
+## Plot type
+
+<table class="tg">
+  <tr>
+    <td class="tg-4c4e">"p"</td>
+    <td class="tg-4c4e">for points</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"l"</td>
+    <td class="tg-4c4e">for lines</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"b"</td>
+    <td class="tg-4c4e">for both</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"c"</td>
+    <td class="tg-4c4e">for the lines part alone of "b"</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"o"</td>
+    <td class="tg-4c4e">for both 'overplotted'</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"h"</td>
+    <td class="tg-4c4e">for 'histogram' like (or 'high-density') vertical lines</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"s"</td>
+    <td class="tg-4c4e">for stair steps</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"S"</td>
+    <td class="tg-4c4e">for other steps</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"n"</td>
+    <td class="tg-4c4e">for no plotting</td>
+  </tr>
+</table>
+
+
+## Plot 
+
+Lets plot both point and line
+```{r}
+plot(x, y, type = "b")
+```
+
+## Task
+
+- plot data points and line in your favoriout color and shape 
+
+
+## Plot Title
+
+Give plot a title
+```{r}
+plot(x, y, main = "my 1st plot")
+```
+
+## Axis Name
+
+Give plot a title
+```{r}
+plot(x, y, main = "my 1st plot", xlab = "number", ylab = "value")
+```
+
+
+## Barplot
+
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors")
+```
+
+# How do we change the bar color?
+
+## Barplot
+
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors", col="red")
+```
+
+## Barplot
+
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+data = data.frame(raptors=raptors, gsw=gsw)
+barplot(t(as.matrix(data)), col=c("red", "blue"), beside=TRUE)
+```
+
+
+R has three main basic data types:
+
+Character:
+```{r chars, echo=TRUE, results='hide'}
+"a"
+"Elephant"
+"Hello World"
+```
+
+Numeric:
+```{r nums, echo=TRUE, results='hide'}
+1
+34
+```
+
+Logical:
+```{r logics, results='hide'}
+TRUE
+FALSE
+```
+
+## Other Data Types
+
+Other Data Types you might meet include:
+
+- Integers `1L`
+- Complex numbers `1 + i`
+- Factors
+
+More on factors later.
+
+## Variables
+
+Assigning data to variables allows us to refer to data later on in our code. R has two main assignment operators, `=` and `<-`. 
+
+`->` also exists but is frowned upon, `<-` is prefered. 
+
+```{r}
+a <- 2
+b <- 3
+a + b
+```
+
+We also met our first built in operator, `+`. 
+
+R supports most of the normal math operators as you would expect. `?Arithmetic` will bring up the help page for arithmetic operators. 
+
+## Variable Names
+
+R is quite flexible in allowed variable names. Here are the rules:
+
+- Starts with a letter or `.` not followed by a number
+- Letters, numbers, dot or underline characters can be included
+- Correct: “valid.name”, ”valid name”, ”valid2name3”
+- Incorrect: ”valid name”, ”valid-name”, ”1valid2name3”
+
+**Note: `.` has no special meaning in R**
+
+## Vectors
+
+Fundementally, almost everything in R (except more complex, custom objects defined by users or packages) is a Vector. Everything we met above was a vector of length 1:
+
+```{r}
+length(43)
+length("Hello World")
+length(TRUE)
+```
