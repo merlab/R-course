@@ -13,9 +13,17 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 ```
 
-# Plots
-## Plots
+<style> #slideSty20 > p { margin-top: -20px; } </style>
+<style> #slideSty30 > p { margin-top: -30px; } </style>
+<style> #slideSty40 > p { margin-top: -40px; } </style>
+<style> #slideSty50 > p { margin-top: -50px; } </style>
+<style> #slideSty60 > p { margin-top: -60px; } </style>
+<style> #slideSty70 > p { margin-top: -70px; } </style>
+<style> #slideSty80 > p { margin-top: -80px; } </style>
 
+# Plots
+
+## Plots {#slideSty40}
 Plotting in R is easy:
 
 ```{r}
@@ -24,16 +32,16 @@ y = x**2
 plot(x, y)
 ```
 
-## Plot 
-
+## Plot {#slideSty40}
 Lets change color
+
 ```{r}
 plot(x, y, col = "red")
 ```
 
-## Plot 
-
+## Plot {#slideSty40}
 Lets change point type
+
 ```{r}
 plot(x, y, pch = 19)
 ```
@@ -118,9 +126,9 @@ p+theme_void()
 </table>
 
 
-## Plot 
+## Plot {#slideSty40}
+- For PCH 21 to 25, background color can be specified
 
-For PCH 21 to 25, background color can be specified
 ```{r}
 plot(x, y, pch = 24, col="red", bg="green")
 ```
@@ -130,11 +138,10 @@ plot(x, y, pch = 24, col="red", bg="green")
 
 - plot data points in your favoriout color and shape
 
-
-
-## Plot Line
+## Plot Line {#slideSty40}
 
 The option `"type"` can change the plot type
+
 ```{r}
 plot(x, y, type = "l")
 ```
@@ -182,24 +189,22 @@ plot(x, y, type = "l")
 </table>
 
 
-## Plot 
-
+## Plot {#slideSty40}
 Lets plot both point and line
+
 ```{r}
 plot(x, y, type = "o")
 ```
 
-## Change line type
-
+## Change line type {#slideSty40}
 The option `"lty"` can change the line type
+
 ```{r}
 plot(x, y, type = "o", lty=2)
 ```
 
 
 ## Line types in R
-
-
 ```{r, echo=FALSE, message=FALSE}
 par(mar=c(0,0,0,0))
 # Set up the plotting area
@@ -227,22 +232,21 @@ text(0, 6, "6. 'twodash'" ,  adj=c(0,.5))
 - plot data points and line in your favoriout color and shape 
 
 
-## Plot Title
-
+## Plot Title {#slideSty40}
 Give plot a title
+
 ```{r}
 plot(x, y, main = "my 1st plot")
 ```
 
-## Axis Name
+## Axis Name {#slideSty40}
+Change plot axis name
 
-Give plot a title
 ```{r}
 plot(x, y, main = "my 1st plot", xlab = "number", ylab = "value")
 ```
 
-## Adding more to a plot
-
+## Adding more to a plot {#slideSty50}
 ```{r}
 x = 1:10
 y = x**2
@@ -250,9 +254,9 @@ z = y + 1
 plot(x, y, pch=19, col="red")
 ```
 
-## Adding more to a plot {#slideID1}
-<style> #slideID1 > p { margin-top: -80px; } </style>
-```{r, fig.height = 4.20,  fig.align = "center"}
+
+## Adding more to a plot {#slideSty80}
+```{r}, fig.height = 4.0,  fig.align = "center"}
 x = 1:10 
 y = x**2 
 z = y + 10
@@ -268,17 +272,16 @@ lines(x, z, col="blue")
 - plot data points and line in your favoriout color and shape 
 
 
-## Fixing axis limits {#slideID}
-<style> #slideID > p { margin-top: -50px; } </style>
-
-R plots are static and adding new points can't change the axis limits
+## Fixing axis limits {#slideSty60}
+- In R plots are static 
+- Adding new points can't change the axis limits
 ```{r}
 plot(x, y, pch=19, col="red")
 lines(x, y, col="red")
 ```
 
-## Fixing axis limits {#slideID3}
-<style> #slideID3 > p { margin-top: -50px; } </style>
+
+## Fixing axis limits {#slideSty50}
 To overcome this issue specify the axis limits in advance
 ```{r}
 ylimit = range(c(y,z))
@@ -288,8 +291,7 @@ points(x, z, col="blue", pch=15)
 lines(x, z, col="blue")
 ```
 
-## Adding legend {#slideID4}
-<style> #slideID4 > p { margin-top: -50px; } </style>
+## Adding legend {#slideSty50}
 ```{r}
 plot(x, y, col="red", pch=19, ylim = c(1,110))
 lines(x, y, col="red")
@@ -300,7 +302,6 @@ legend(1,100,legend=c("y","z"), col=c("red","blue"), pch=c(19,15))
 
 
 ## Barplot
-
 ```{r}
 raptors = c(33,27,26,28)
 barplot(raptors, main="Toronto Raptors")
@@ -324,8 +325,7 @@ barplot(raptors, main="Toronto Raptors", col="red", border = NA)
 ```
 
 
-## Barplot (Stacked) {#slideID40}
-<style> #slideID40 > p { margin-top: -70px; } </style>
+## Barplot (Stacked) {#slideSty70}
 ```{r}
 raptors = c(33,27,26,28)
 gsw = c(32, 25, 31, 22)
@@ -339,8 +339,7 @@ barplot(data, col=c("red", "gold"))
 barplot(data, col=c("red", "gold"), beside=TRUE)
 ```
 
-## Barplot (add legend){#slideID5}
-<style> #slideID5 > p { margin-top: -70px; } </style>
+## Barplot (add legend){#slideSty70}
 ```{r, fig.width= 8.0, fig.height = 6.0, fig.align = "center"}
 barplot(data, col=c("red","gold"), beside=TRUE, legend=rownames(data),
         args.legend = list(x="topright"))
@@ -350,10 +349,8 @@ barplot(data, col=c("red","gold"), beside=TRUE, legend=rownames(data),
 # Boxplot
 
 
-## Boxplot {#slideID50}
-<style> #slideID50 > p { margin-top: -30px; } </style>
+## Boxplot {#slideSty30}
 Same as barplot but data should be in column:
-
 ```{r}
 raptors = c(33,27,26,28)
 gsw = c(32, 25, 31, 22)
@@ -361,10 +358,8 @@ boxplot(raptors, gsw)
 ```
 
 
-## Boxplot {#slideID51}
-<style> #slideID51 > p { margin-top: -20px; } </style>
+## Boxplot {#slideSty30}
 Add names to the box:
-
 ```{r}
 raptors = c(33,27,26,28)
 gsw = c(32, 25, 31, 22)
@@ -372,9 +367,8 @@ boxplot(raptors, gsw, names=c("Raptors","GSW"))
 ```
 
 
-## Boxplot (color)
+## Boxplot (color) {#slideSty30}
 Here HTML color codes are used: 
-<style> #slideID5 > p { margin-top: -70px; } </style>
 ```{r}
 boxplot(raptors, gsw, names=c("Raptors", "GSW"), 
         col=c("#d7301f","#dfc27d"), 
