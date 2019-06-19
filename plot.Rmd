@@ -24,15 +24,6 @@ y = x**2
 plot(x, y)
 ```
 
-
-## Plot 
-
-Give plot a title
-```{r}
-plot(x, y)
-```
-
-
 ## Plot 
 
 Lets change color
@@ -195,8 +186,41 @@ plot(x, y, type = "l")
 
 Lets plot both point and line
 ```{r}
-plot(x, y, type = "b")
+plot(x, y, type = "o")
 ```
+
+## Change line type
+
+The option `"lty"` can change the line type
+```{r}
+plot(x, y, type = "o", lty=2)
+```
+
+
+## Line types in R
+
+
+```{r, echo=FALSE, message=FALSE}
+par(mar=c(0,0,0,0))
+# Set up the plotting area
+plot(NA, xlim=c(0,1), ylim=c(6.5, -0.5),
+    xaxt="n", yaxt="n",
+    xlab=NA, ylab=NA )
+# Draw the lines
+for (i in 0:6) {
+    points(c(0.25,1), c(i,i), lty=i, lwd=2, type="l")
+}
+# Add labels
+text(0, 0, "0. 'blank'"   ,  adj=c(0,.5))
+text(0, 1, "1. 'solid'"   ,  adj=c(0,.5))
+text(0, 2, "2. 'dashed'"  ,  adj=c(0,.5))
+text(0, 3, "3. 'dotted'"  ,  adj=c(0,.5))
+text(0, 4, "4. 'dotdash'" ,  adj=c(0,.5))
+text(0, 5, "5. 'longdash'",  adj=c(0,.5))
+text(0, 6, "6. 'twodash'" ,  adj=c(0,.5))
+###dev.off()
+```
+
 
 ## Task
 
@@ -217,6 +241,63 @@ Give plot a title
 plot(x, y, main = "my 1st plot", xlab = "number", ylab = "value")
 ```
 
+## Adding more to a plot
+
+```{r}
+x = 1:10
+y = x**2
+z = y + 1
+plot(x, y, pch=19, col="red")
+```
+
+## Adding more to a plot {#slideID1}
+<style> #slideID1 > p { margin-top: -80px; } </style>
+```{r, fig.height = 4.20,  fig.align = "center"}
+x = 1:10 
+y = x**2 
+z = y + 10
+plot(x, y, pch=19, col="red")
+lines(x, y, col="red")
+points(x, z, col="blue")
+lines(x, z, col="blue")
+```
+
+
+## Task
+
+- plot data points and line in your favoriout color and shape 
+
+
+## Fixing axis limits {#slideID}
+<style> #slideID > p { margin-top: -50px; } </style>
+
+R plots are static and adding new points can't change the axis limits
+```{r}
+plot(x, y, pch=19, col="red")
+lines(x, y, col="red")
+```
+
+## Fixing axis limits {#slideID3}
+<style> #slideID3 > p { margin-top: -50px; } </style>
+To overcome this issue specify the axis limits in advance
+```{r}
+ylimit = range(c(y,z))
+plot(x, y, col="red", pch=19, ylim = ylimit)
+lines(x, y, col="red")
+points(x, z, col="blue", pch=15)
+lines(x, z, col="blue")
+```
+
+## Adding legend {#slideID4}
+<style> #slideID4 > p { margin-top: -50px; } </style>
+```{r}
+plot(x, y, col="red", pch=19, ylim = c(1,110))
+lines(x, y, col="red")
+points(x, z, col="blue", pch=15)
+lines(x, z, col="blue")
+legend(1,100,legend=c("y","z"), col=c("red","blue"), pch=c(19,15))
+```
+
 
 ## Barplot
 
@@ -228,86 +309,117 @@ barplot(raptors, main="Toronto Raptors")
 # How do we change the bar color?
 
 ## Barplot
-
 ```{r}
 raptors = c(33,27,26,28)
 barplot(raptors, main="Toronto Raptors", col="red")
 ```
 
+
+# How do we change border color?
+
 ## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors", col="red", border = NA)
+```
+
+
+## Barplot (Stacked) {#slideID40}
+<style> #slideID40 > p { margin-top: -70px; } </style>
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+data = rbind(raptors, gsw)
+colnames(data) = c("Q1", "Q2", "Q3", "Q4")
+barplot(data, col=c("red", "gold"))
+```
+
+## Barplot (Grouped)
+```{r}
+barplot(data, col=c("red", "gold"), beside=TRUE)
+```
+
+## Barplot (add legend){#slideID5}
+<style> #slideID5 > p { margin-top: -70px; } </style>
+```{r, fig.width= 8.0, fig.height = 6.0, fig.align = "center"}
+barplot(data, col=c("red","gold"), beside=TRUE, legend=rownames(data),
+        args.legend = list(x="topright"))
+```
+
+
+# Boxplot
+
+
+## Boxplot {#slideID50}
+<style> #slideID50 > p { margin-top: -30px; } </style>
+Same as barplot but data should be in column:
 
 ```{r}
 raptors = c(33,27,26,28)
 gsw = c(32, 25, 31, 22)
-data = data.frame(raptors=raptors, gsw=gsw)
-barplot(t(as.matrix(data)), col=c("red", "blue"), beside=TRUE)
+boxplot(raptors, gsw)
 ```
 
 
-R has three main basic data types:
-
-Character:
-```{r chars, echo=TRUE, results='hide'}
-"a"
-"Elephant"
-"Hello World"
-```
-
-Numeric:
-```{r nums, echo=TRUE, results='hide'}
-1
-34
-```
-
-Logical:
-```{r logics, results='hide'}
-TRUE
-FALSE
-```
-
-## Other Data Types
-
-Other Data Types you might meet include:
-
-- Integers `1L`
-- Complex numbers `1 + i`
-- Factors
-
-More on factors later.
-
-## Variables
-
-Assigning data to variables allows us to refer to data later on in our code. R has two main assignment operators, `=` and `<-`. 
-
-`->` also exists but is frowned upon, `<-` is prefered. 
+## Boxplot {#slideID51}
+<style> #slideID51 > p { margin-top: -20px; } </style>
+Add names to the box:
 
 ```{r}
-a <- 2
-b <- 3
-a + b
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+boxplot(raptors, gsw, names=c("Raptors","GSW"))
 ```
 
-We also met our first built in operator, `+`. 
 
-R supports most of the normal math operators as you would expect. `?Arithmetic` will bring up the help page for arithmetic operators. 
-
-## Variable Names
-
-R is quite flexible in allowed variable names. Here are the rules:
-
-- Starts with a letter or `.` not followed by a number
-- Letters, numbers, dot or underline characters can be included
-- Correct: “valid.name”, ”valid name”, ”valid2name3”
-- Incorrect: ”valid name”, ”valid-name”, ”1valid2name3”
-
-**Note: `.` has no special meaning in R**
-
-## Vectors
-
-Fundementally, almost everything in R (except more complex, custom objects defined by users or packages) is a Vector. Everything we met above was a vector of length 1:
-
+## Boxplot (color)
+Here HTML color codes are used: 
+<style> #slideID5 > p { margin-top: -70px; } </style>
 ```{r}
-length(43)
-length("Hello World")
-length(TRUE)
+boxplot(raptors, gsw, names=c("Raptors", "GSW"), 
+        col=c("#d7301f","#dfc27d"), 
+        border=c("#7f0000", "#8c510a"), main="NBA Finals")
+```
+
+
+## Task
+
+- Add one more boxplot with data:
+```{r}
+bucks = c(23, 28, 25, 32)
+```
+
+
+## Saving Plots for Publication
+- For publications use PDF or PNG format
+- To save plot, open file just before plot function
+- Don't forget to close the file using **dev.off()**
+```{r, eval=FALSE}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+bucks = c(23, 28, 25, 32)
+
+pdf("NBA_finals.pdf", width = 4, height = 5)
+
+boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"), 
+        col=c("#d7301f","#dfc27d", "#41ab5d"), 
+        border=c("#7f0000", "#8c510a", "#00441b"), main="NBA Finals")
+
+dev.off()
+```
+
+
+## Saving Plots for Publication
+- In **PNG** format, specify resolution using **res** 
+- **res** should be atleast 300 for publications  and 600 for presenation
+- Also don't forget to specify **units**
+
+```{r, eval=FALSE}
+png("figure-1.png", width = 4, height = 5, units = 'in', res = 600)
+
+boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"), 
+        col=c("#d7301f","#dfc27d", "#41ab5d"), 
+        border=c("#7f0000", "#8c510a", "#00441b"), main="NBA Finals")
+
+dev.off()
 ```
