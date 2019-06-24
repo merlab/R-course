@@ -91,9 +91,11 @@ A named container or storage that is used to reference a value in the code.
     
     ```{r}
       a = 10
+      c = 5
       b = 12
       a+b
       barplot(c(a,b))
+      
     ```
 
 ### Vectors
