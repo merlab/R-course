@@ -1,0 +1,90 @@
+---
+title: "R for beginners Notebook"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# R Biostat. and data analysis
+
+## R Biostat. basics
+
+Useful functions:
+
+- sum(x)	  --> Sums the elements in x
+- prod(x)	  --> Product of the elements in x
+- max(x)	  --> Maximum element in x
+- min(x)	  --> Minimum element in x
+- range(x)  --> Range (min to max) of elements in x
+
+
+## R Biostat. basics
+
+Useful functions:
+
+- mean(x)   --> Mean (average value) of elements in x.
+- median(x) --> Median  (middle  value)  of  elements  in x
+- var(x)    --> Variance of elements in x
+- sd(x)	    --> Standard deviation of element in x
+- cor(x,y)	--> Correlation between x and y
+- cov(x,y)	--> Covariance between x and y
+- quantile(x,p)	--> The pth quantile of x
+
+
+## R Biostat. basics
+
+Example: patients data
+
+```{r, results='hold'}
+patients.df <- data.frame(
+  "ID"=paste0("p",1:100)
+  ,"Age"=sample(30:70,100,replace = T)
+  ,"Stage"=factor(sample(c("I","II","III","IV"),100,replace = T))
+  ,stringsAsFactors = F)
+
+head(patients.df)
+
+
+```
+
+## R Biostat. basics
+
+Example: patients data
+
+```{r}
+
+quantile(patients.df$Age)
+hist(patients.df$Age)
+
+
+```
+
+
+
+## R Biostat. basics
+
+Example: patients data
+
+```{r, results='hold'}
+summary(patients.df$Stage)
+
+boxplot(Age ~ Stage, patients.df)
+
+```
+
+
+
+
+
+
+
+
+
+
+

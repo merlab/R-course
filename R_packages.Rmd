@@ -27,7 +27,7 @@ There are many repositories that hosts R packages for public use:
 - Bioconductor: a repository intended for open source software for bioinformatics.
 - others: github (mostly for under development packages).
 
-## R Packages
+## R Packages - CRAN
 
 Installing a package that is in CRAN is simple!
 
@@ -48,8 +48,17 @@ getXKCD(386)
 ```
 
 
-## R Packages
+## R Packages - Bioconductor
 
-Bioconductor
+A repository intended for open source software for bioinformatics.
+
+Installing a package that is in Bioconductor is also simple! However, it is very dependent on the your version of R.
+
+```{r}
+  sessionInfo() # a useful command to know your R version and 
+```
+
+
+
 
 
