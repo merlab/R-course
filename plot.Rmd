@@ -417,3 +417,6 @@ boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"),
 
 dev.off()
 ```
+
+
+## talk about ~
