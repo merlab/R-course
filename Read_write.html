@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>R for beginners Notebook</title>
+  <title>Read and write data in R</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -19,7 +19,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'R for beginners Notebook',
+                title: 'Read and write data in R',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3107,618 +3107,105 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">26 June, 2019</p>
           </hgroup>
   </slide>
 
-<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>R data-types and structures</h2></hgroup><article  id="r-data-types-and-structures">
+<style> #slideSty80 > p { margin-top: -80px; } </style>
 
-</article></slide><slide class=""><hgroup><h2>Variable</h2></hgroup><article  id="variable">
-
-<p>A named container or storage that is used to reference a value in the code.</p>
+<slide class=""><hgroup><h2>Save data</h2></hgroup><article  id="slideSty80">
 
 <ul>
-<li>This value can be of many types:
-
-<ul>
-<li>numeric: <code>1, 2, 3</code></li>
-<li>character: <code>&quot;a&quot;, &quot;b&quot;, &quot;c&quot;</code></li>
-<li>logical: <code>TRUE, FALSE</code> or simply <code>T, F</code></li>
-<li>Integers, complex, and factors</li>
-</ul></li>
+<li>R can save data in different formats</li>
+<li>Data can be saved in R native format</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Variable</h2></hgroup><article  id="variable-1">
+<pre class = 'prettyprint lang-r'>raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+df = cbind(raptors, gsw)
+saveRDS(df, &quot;my_data.rds&quot;)</pre>
 
 <ul>
-<li>Constraints on names:
+<li>To read it use readRDS function</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>mydata = readRDS(&quot;my_data.rds&quot;)
+head(mydata)</pre>
+
+<pre >##      raptors gsw
+## [1,]      33  32
+## [2,]      27  25
+## [3,]      26  31
+## [4,]      28  22</pre>
+
+</article></slide><slide class=""><hgroup><h2>Save data</h2></hgroup><article  id="slideSty80">
 
 <ul>
-<li>must starts with a letter or a dot not followed by a number.</li>
-<li>can only contain letters, numbers, underscore and the dot character &ldquo;.&rdquo;</li>
+<li>R can save data in CSV formats</li>
 </ul>
 
-<code>var1, .var1, var.name, v1</code> <code>1v, .1v, var-1, var#1</code></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Variable</h2></hgroup><article  id="variable-2">
-
-<p><code>&lt;-</code> and <code>=</code> are used for assignment of values in R</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- 2
-  b &lt;- 3
-  a+b</pre>
-
-<pre >## [1] 5</pre>
+<pre class = 'prettyprint lang-r'>write.csv(df,file=&quot;my_data.csv&quot;)</pre>
 
 <ul>
-<li>Note that R variables are dynamically typed</li>
+<li>To read it use read.csv function</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>  a &lt;- 2
-  a &lt;- &quot;hello&quot;</pre>
+<pre class = 'prettyprint lang-r'>mydata2 = read.csv(&quot;my_data.csv&quot;, row.names = 1)
+head(mydata2)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector">
+<pre >##   raptors gsw
+## 1      33  32
+## 2      27  25
+## 3      26  31
+## 4      28  22</pre>
 
-<p>A <code>vector</code> is the simplest data structure in R. it represents a container for a set of elements of the same data type. - Examples:</p>
-
-<pre class = 'prettyprint lang-r'>  c(1,3,5)</pre>
-
-<pre >## [1] 1 3 5</pre>
-
-<pre class = 'prettyprint lang-r'>  length(c(&quot;test&quot;))</pre>
-
-<pre >## [1] 1</pre>
-
-<pre class = 'prettyprint lang-r'>  class(c(TRUE,TRUE,FALSE))</pre>
-
-<pre >## [1] &quot;logical&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector-1">
-
-<p><code>c</code> function is used to concatenate vectors.</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5)
-  b &lt;- c(2,4,6)
-  c &lt;- c(a,b)
-  c</pre>
-
-<pre >## [1] 1 3 5 2 4 6</pre>
-
-<p>Remember: vectors have a single data type</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5)
-  b &lt;- c(&quot;a&quot;,&quot;b&quot;)
-  c(a,b)</pre>
-
-<pre >## [1] &quot;1&quot; &quot;3&quot; &quot;5&quot; &quot;a&quot; &quot;b&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector-2">
-
-<p>Arithmetics are performed on vectors member-by-member</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1:3) # R way to create a sequence of numbers
-  a</pre>
-
-<pre >## [1] 1 2 3</pre>
-
-<pre class = 'prettyprint lang-r'>  a + 1</pre>
-
-<pre >## [1] 2 3 4</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector-3">
-
-<p>and this extends to operations between vectors</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5)
-  b &lt;- c(2,4,6)
-  a+b</pre>
-
-<pre >## [1]  3  7 11</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector-4">
-
-<p>What will happen if the two vectors are of different lengths?</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5)
-  b &lt;- c(2,4,6,8,10)
-  c &lt;- a+b</pre>
-
-<pre >## Warning in a + b: longer object length is not a multiple of shorter object
-## length</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector-5">
-
-<p>Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign to variables.</p>
-
-<p>Try subtracting the two vectors. What happened?</p>
-
-</article></slide><slide class=""><hgroup><h2>Vector</h2></hgroup><article  id="vector-6">
-
-<p>Retrieving elements from a vector is done by <code>indexing</code></p>
+</article></slide><slide class=""><hgroup><h2>Excel files</h2></hgroup><article  id="excel-files">
 
 <ul>
-<li><p>There are many ways to use indexing and the simplest is <code>numeric indexing</code>, i.e. a number that represents the position of an element in a vector.</p></li>
-<li><p><code>[]</code> is used for indexing. In R, indexing starts from <code>1</code></p></li>
+<li>R package <strong>openxlsx</strong> can read and write Excel files</li>
+<li>Task: Install the package <strong>openxlsx</strong> and load it</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5,7,9)
-  a[2]</pre>
-
-<pre >## [1] 3</pre>
-
-<pre class = 'prettyprint lang-r'>  a[c(3,5)]</pre>
-
-<pre >## [1] 5 9</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector - Indexing</h2></hgroup><article  id="vector---indexing">
-
-<p><code>indexing</code> can be used also for changing values in a vector</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5,7,9)
-  a[2] &lt;- 4 
-  a</pre>
-
-<pre >## [1] 1 4 5 7 9</pre>
-
-<pre class = 'prettyprint lang-r'>  a[c(3,5)] &lt;- c(6,10)
-  a</pre>
-
-<pre >## [1]  1  4  6  7 10</pre>
-
-<pre class = 'prettyprint lang-r'>  a[-1] # negative indexing is used to remove elements</pre>
-
-<pre >## [1]  4  6  7 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Vector - Indexing</h2></hgroup><article  id="vector---indexing-1">
-
-<p>Logical values can be used for <code>indexing</code> too.</p>
-
-<pre class = 'prettyprint lang-r'>  a &lt;- c(1,3,5,7,9)
-  a[c(T,F,T,F,T)]</pre>
-
-<pre >## [1] 1 5 9</pre>
-
-<pre class = 'prettyprint lang-r'>  a[c(F,F,T,F,T)] &lt;- c(6,10)
-  a</pre>
-
-<pre >## [1]  1  3  6  7 10</pre>
-
-<pre class = 'prettyprint lang-r'>  b &lt;- a[c(T,F)] # what will happen??</pre>
-
-</article></slide><slide class=""><hgroup><h2>Named Vectors</h2></hgroup><article  id="named-vectors">
-
-<p>R allows us to give names to each element in a vector, and use them to index:</p>
-
-<pre class = 'prettyprint lang-r'>a &lt;- c(2,4,6,8,10)
-names(a) &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;)
-a[c(&quot;A&quot;, &quot;D&quot;)]</pre>
-
-<pre >## A D 
-## 2 8</pre>
-
-</article></slide><slide class=""><hgroup><h2>Matrix</h2></hgroup><article  id="matrix">
-
-<p>A <code>matrix</code> is a collection of data elements arranged in a two-dimensional rectangular layout</p>
-
-<pre class = 'prettyprint lang-r'>a = matrix( 
-   c(2, 4, 3, 1, 5, 7), # the data elements 
-   nrow=2,              # number of rows 
-   ncol=3)             # number of columns 
-a</pre>
-
-<pre >##      [,1] [,2] [,3]
-## [1,]    2    3    5
-## [2,]    4    1    7</pre>
-
-<pre class = 'prettyprint lang-r'>a[2,3] # note the &#39;,&#39; to indiacte row and column indexing</pre>
-
-<pre >## [1] 7</pre>
-
-</article></slide><slide class=""><hgroup><h2>Matrix - Names</h2></hgroup><article  id="matrix---names">
-
-<p>Matrix can have row and/or column names:</p>
-
-<pre class = 'prettyprint lang-r'>a &lt;- matrix(data=1:10, nrow=2, ncol=5)
-rownames(a) &lt;- c(&quot;A&quot;, &quot;B&quot;)
-a</pre>
-
-<pre >##   [,1] [,2] [,3] [,4] [,5]
-## A    1    3    5    7    9
-## B    2    4    6    8   10</pre>
-
-<pre class = 'prettyprint lang-r'>a[&quot;B&quot;, c(2,5)]</pre>
-
-<pre >## [1]  4 10</pre>
-
-<pre class = 'prettyprint lang-r'>a[&quot;A&quot;,]</pre>
-
-<pre >## [1] 1 3 5 7 9</pre>
-
-</article></slide><slide class=""><hgroup><h2>List</h2></hgroup><article  id="list">
-
-<p>A <code>list</code> is a generic vector that can contain multiple data types. Think of it as a vector of boxes, you can put anything in the box.</p>
-
-<pre class = 'prettyprint lang-r'>b &lt;- list(1, &quot;a&quot;, c(TRUE, FALSE))
-b</pre>
-
-<pre >## [[1]]
-## [1] 1
-## 
-## [[2]]
-## [1] &quot;a&quot;
-## 
-## [[3]]
-## [1]  TRUE FALSE</pre>
-
-</article></slide><slide class=""><hgroup><h2>List - indexing</h2></hgroup><article  id="list---indexing">
-
-<p>One square bracket <code>[]</code> will retrieve the box, while double square brackets would upack the box</p>
-
-<pre class = 'prettyprint lang-r'>n = c(2, 3, 5) 
-s = c(&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;, &quot;dd&quot;, &quot;ee&quot;) 
-b = c(TRUE, FALSE, TRUE, FALSE, FALSE) 
-a &lt;- list(n,s,b)
-a[2]</pre>
-
-<pre >## [[1]]
-## [1] &quot;aa&quot; &quot;bb&quot; &quot;cc&quot; &quot;dd&quot; &quot;ee&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>a[[2]]</pre>
-
-<pre >## [1] &quot;aa&quot; &quot;bb&quot; &quot;cc&quot; &quot;dd&quot; &quot;ee&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>List - indexing</h2></hgroup><article  id="list---indexing-1">
-
-<pre class = 'prettyprint lang-r'>n = c(2, 3, 5) 
-s = c(&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;, &quot;dd&quot;, &quot;ee&quot;) 
-a &lt;- list(n,s)
-a[[2]][3]</pre>
-
-<pre >## [1] &quot;cc&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>List - indexing</h2></hgroup><article  id="list---indexing-2">
-
-<p>Named lists provide another way to index them using the operator <code>$</code></p>
-
-<pre class = 'prettyprint lang-r'>n = c(2, 3, 5) 
-s = c(&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;, &quot;dd&quot;, &quot;ee&quot;) 
-a &lt;- list(&quot;numbers&quot;=n,&quot;strings&quot;=s)
-a$numbers</pre>
-
-<pre >## [1] 2 3 5</pre>
-
-<pre class = 'prettyprint lang-r'>a[[&quot;strings&quot;]]</pre>
-
-<pre >## [1] &quot;aa&quot; &quot;bb&quot; &quot;cc&quot; &quot;dd&quot; &quot;ee&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Dataframe</h2></hgroup><article  id="dataframe">
-
-<p>A <code>dataframe</code> is used for storing data tables. It represents a list of vectors of equal length.</p>
-
-<pre class = 'prettyprint lang-r'>n = c(2, 3, 5) 
-s = c(&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;) 
-b = c(TRUE, FALSE, TRUE) 
-df = data.frame(n, s, b)       # df is a data frame
-df</pre>
-
-<pre >##   n  s     b
-## 1 2 aa  TRUE
-## 2 3 bb FALSE
-## 3 5 cc  TRUE</pre>
-
-<pre class = 'prettyprint lang-r'>df$s</pre>
-
-<pre >## [1] aa bb cc
-## Levels: aa bb cc</pre>
-
-<pre class = 'prettyprint lang-r'>df[[&quot;b&quot;]]</pre>
-
-<pre >## [1]  TRUE FALSE  TRUE</pre>
-
-</article></slide><slide class=""><hgroup><h2>Dataframe</h2></hgroup><article  id="dataframe-1">
-
-<pre class = 'prettyprint lang-r'>n = c(2, 3, 5) 
-s = c(&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;) 
-b = c(TRUE, FALSE, TRUE) 
-df = data.frame(n, s, b)       # df is a data frame
-df$b</pre>
-
-<pre >## [1]  TRUE FALSE  TRUE</pre>
-
-<pre class = 'prettyprint lang-r'>df[[&quot;s&quot;]]</pre>
-
-<pre >## [1] aa bb cc
-## Levels: aa bb cc</pre>
-
-<pre class = 'prettyprint lang-r'>df = data.frame(n, s, b,stringsAsFactors = F) 
-df$s</pre>
-
-<pre >## [1] &quot;aa&quot; &quot;bb&quot; &quot;cc&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>R data-types and structures</h2></hgroup><article  id="r-data-types-and-structures-1">
-
-<p>These are the main data types and structures in R.</p>
-
-<p>We still need to talk about factors!</p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>R operations</h2></hgroup><article  id="r-operations">
-
-</article></slide><slide class=""><hgroup><h2>R Arithmetic operators</h2></hgroup><article  id="r-arithmetic-operators">
-
-<pre class = 'prettyprint lang-r'>x &lt;- 3
-y &lt;- 5
-+ x       # 3
-- x       # -3
-x + y     # 8
-x - y     # -2
-x * y     # 15
-x / y     # 0.6
-x ^ y     # 243
-x %% y    # 3
-x %/% y   # 0</pre>
-
-</article></slide><slide class=""><hgroup><h2>R Relational operators</h2></hgroup><article  id="r-relational-operators">
-
-<pre class = 'prettyprint lang-r'>x &lt;- 3
-y &lt;- 5
-x &lt; y    # TRUE
-x &gt; y    # FALSE
-x &lt;= y   # TRUE
-x &gt;= y   # FALSE
-x == y   # FALSE
-x != y   # TRUE</pre>
-
-</article></slide><slide class=""><hgroup><h2>R Logical operators</h2></hgroup><article  id="r-logical-operators">
-
-<pre class = 'prettyprint lang-r'>x &lt;- TRUE
-y &lt;- FALSE
-!x       # FALSE  -- NOT
-x &amp;&amp; y   # FALSE  -- Logical AND
-x || y   # TRUE   -- Logical OR</pre>
-
-<pre class = 'prettyprint lang-r'>x &lt;- c(TRUE,TRUE,FALSE)
-y &lt;- c(TRUE,FALSE,FALSE)
-x &amp; y   # element-wise AND</pre>
-
-<pre >## [1]  TRUE FALSE FALSE</pre>
-
-<pre class = 'prettyprint lang-r'>x | y   # element-wise OR</pre>
-
-<pre >## [1]  TRUE  TRUE FALSE</pre>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>R control flow structures</h2></hgroup><article  id="r-control-flow-structures">
-
-</article></slide><slide class=""><hgroup><h2>if-else</h2></hgroup><article  id="if-else">
-
-<p>This is a conditional flow by which the following steps of the program are dependent on the outcome of the condition.</p>
-
-<pre class = 'prettyprint lang-r'>if(3&gt;2){
-  print(&quot;Yes&quot;) 
-}</pre>
-
-<pre >## [1] &quot;Yes&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>if(3&lt;2){
-  print(&quot;Yes&quot;) 
-}else{
-  print(&quot;No&quot;)
-}</pre>
-
-<pre >## [1] &quot;No&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>if-else</h2></hgroup><article  id="if-else-1">
-
-<pre class = 'prettyprint lang-r'>if(3&lt;2){
-  print(&quot;No&quot;) 
-}else if(3&gt;2){
-  print(&quot;Yes&quot;)
-}else{
-  print(&quot;Maybe&quot;)
-}</pre>
-
-<pre >## [1] &quot;Yes&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>ifelse(3&gt;2,&quot;yes&quot;,&quot;No&quot;)</pre>
-
-<pre >## [1] &quot;yes&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Loops</h2></hgroup><article  id="loops">
-
-<p>Loops are used to repeat a block of code until a condition is satisfied</p>
-
-<p>There are two flow structues for loops, i.e., <code>for</code> loops and <code>while</code> loops</p>
-
-</article></slide><slide class=""><hgroup><h2>for loops</h2></hgroup><article  id="for-loops">
-
-<p>The most common use is to iterate through the elements of a vector</p>
-
-<pre class = 'prettyprint lang-r'>myVec &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-for(letter in myVec){
-  print(letter)
-}</pre>
-
-<pre >## [1] &quot;A&quot;
-## [1] &quot;B&quot;
-## [1] &quot;C&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>for loops</h2></hgroup><article  id="for-loops-1">
-
-<p>One can also iterate through a vector using its indecies</p>
-
-<pre class = 'prettyprint lang-r'>myVec &lt;- c(2, 5, 21)
-for(i in seq_along(myVec)){
-  print(myVec[i] + 3)
-}</pre>
-
-<pre >## [1] 5
-## [1] 8
-## [1] 24</pre>
-
-<p>Note: seq_along is a built-in function. You might be tempted to do <code>1:length(myVec)</code>. This breaks when <code>length(myVec)</code> is accidentally 0.</p>
-
-</article></slide><slide class=""><hgroup><h2>while loops</h2></hgroup><article  id="while-loops">
-
-<p>Repeats executing the code enclosed while a condition is satisified</p>
-
-<pre class = 'prettyprint lang-r'>myVec &lt;- c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)
-i &lt;- 1
-while(i &lt;= length(myVec)){
-  print(myVec[i])
-  i &lt;- i + 1
-}</pre>
-
-<pre >## [1] &quot;a&quot;
-## [1] &quot;b&quot;
-## [1] &quot;c&quot;</pre>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>functions</h2></hgroup><article  id="functions">
-
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-1">
-
-<p>R does everything by copying. What do we mean by that?</p>
-
-<pre class = 'prettyprint lang-r'>a &lt;- 3
-b &lt;- a
-a &lt;- 2
-a
-b</pre>
-
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-2">
-
-<p>R does everything by copying. What do we mean by that?</p>
-
-<pre class = 'prettyprint lang-r'>a &lt;- 3
-b &lt;- a
-a &lt;- 2
-a</pre>
-
-<pre >## [1] 2</pre>
-
-<pre class = 'prettyprint lang-r'>b</pre>
-
-<pre >## [1] 3</pre>
-
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-3">
+</article></slide><slide class=""><hgroup><h2>Write excel files</h2></hgroup><article  id="write-excel-files">
 
 <ul>
-<li><p>A <code>function</code> is a block of code that can be used multiple times. It is a way to structure the code.</p></li>
-<li><p>R provides many built-in functions that ease writing programs and executing codes.</p></li>
-<li><p>Examples: <code>print</code>, <code>:</code>, <code>c</code>, <code>in</code></p></li>
+<li>To install the package</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-4">
+<pre class = 'prettyprint lang-r'>install.packages(&quot;openxlsx&quot;)</pre>
 
-<p>R also provides users with the ability to write their own custom functions</p>
+<ul>
+<li>To write the Excel file</li>
+</ul>
 
-<pre class = 'prettyprint lang-r'>printThanks &lt;- function(){
-  return(&quot;Thank you very much for running this code&quot;)
-}
+<pre class = 'prettyprint lang-r'>library(openxlsx)
+write.xlsx(df, &quot;myData.xlsx&quot;)</pre>
 
-printThanks</pre>
+<pre >## Note: zip::zip() is deprecated, please use zip::zipr() instead</pre>
 
-<pre >## function(){
-##   return(&quot;Thank you very much for running this code&quot;)
-## }</pre>
+<ul>
+<li>Now open the <strong>myData.xlsx</strong> file, add one more row, save and close the file</li>
+</ul>
 
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-5">
+</article></slide><slide class=""><hgroup><h2>Read excel files</h2></hgroup><article  id="read-excel-files">
 
-<p>You could add also parameters to your function</p>
+<pre class = 'prettyprint lang-r'>myxl = read.xlsx(&quot;myData.xlsx&quot;)
+head(myxl)</pre>
 
-<pre class = 'prettyprint lang-r'>isEven &lt;- function(x){
-  if(x%%2==0){
-    return(TRUE)
-  }
-  return(FALSE)
-}
+<pre >##   raptors gsw
+## 1      33  32
+## 2      27  25
+## 3      26  31
+## 4      28  22</pre>
 
-isEven(4)</pre>
+</article></slide><slide class=""><hgroup><h2>Caution</h2></hgroup><article  id="caution">
 
-<pre >## [1] TRUE</pre>
-
-<pre class = 'prettyprint lang-r'>isEven(3)</pre>
-
-<pre >## [1] FALSE</pre>
-
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-6">
-
-<p>Variables defined inside a function are local to that function.</p>
-
-<pre class = 'prettyprint lang-r'>x &lt;- 5
-testScope &lt;- function(x){
-  return(x+1)
-}
-testScope(4)
-testScope(x)
-x</pre>
-
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-7">
-
-<p>Variables defined inside a function are local to that function.</p>
-
-<pre class = 'prettyprint lang-r'>x &lt;- 5
-testScope &lt;- function(x){
-  return(x+1)
-}
-testScope(4)</pre>
-
-<pre >## [1] 5</pre>
-
-<pre class = 'prettyprint lang-r'>testScope(x)</pre>
-
-<pre >## [1] 6</pre>
-
-<pre class = 'prettyprint lang-r'>x</pre>
-
-<pre >## [1] 5</pre>
-
-</article></slide><slide class=""><hgroup><h2>*apply</h2></hgroup><article  id="apply">
-
-<p>Functions in R become super useful together with the built-in apply functions. *apply helps you apply a function to each element of a vector or row/column of a matrix.</p>
-
-<p>There are 3 main apply functions: <code>lapply</code>, <code>sapply</code> and <code>apply</code>. <code>lapply</code> - l stands for list, will return a list. <code>sapply</code> s stands for simple, will try to simplify the list. <code>apply</code> is <code>sapply</code> for matrices and data.frames.</p>
-
-</article></slide><slide class=""><hgroup><h2>sapply</h2></hgroup><article  id="sapply">
-
-<p>Here is an sapply example:</p>
-
-<pre class = 'prettyprint lang-r'>isEven &lt;- function(x){
-  if(x%%2==0){
-    return(TRUE)
-  }
-  return(FALSE)
-}
-
-myVec &lt;- c(4,3,2,1)
-sapply(myVec, isEven)</pre>
-
-<pre >## [1]  TRUE FALSE  TRUE FALSE</pre>
-
-</article></slide><slide class=""><hgroup><h2>apply</h2></hgroup><article  id="apply-1">
-
-<p><code>apply</code>, unlike sapply and lapply takes 3 arguments: the data to apply over, which dimensions to apply over, and the function to apply.</p>
-
-<p>Heres a silly example, using the built-in <code>sum</code> function, which returns the sum of a vector:</p>
-
-<pre class = 'prettyprint lang-r'>my.mat &lt;- matrix(1:4, nrow=2, ncol=2)
-my.mat
-apply(my.mat, 1, sum)
-apply(my.mat, 2, sum)</pre>
-
-<pre >##      [,1] [,2]
-## [1,]    1    3
-## [2,]    2    4
-## [1] 4 6
-## [1] 3 7</pre>
-
-</article></slide><slide class=""><hgroup><h2>functions</h2></hgroup><article  id="functions-8">
-
-<p>R has many built-in functions that can ease writing programs and you can find their syntax by using <code>?</code> operator</p>
-
-<p>Examples:</p>
-
-<pre class = 'prettyprint lang-r'>?mean
-?rownames
-?read.csv</pre></article></slide>
+<ul>
+<li>Large Excel files may take long time and memory to read/write</li>
+<li>Use R native <strong>RDS</strong> files to read and write the data during the analysis</li>
+<li>To share data, prefer <strong>CSV</strong> format then Excel</li>
+<li>Save only final results/data in Excel format</li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>
