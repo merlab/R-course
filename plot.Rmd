@@ -48,7 +48,7 @@ plot(x, y, pch = 19)
 
 ## PCH 
 
-PCH (plotting character) is argument to specify point shapes
+PCH (plotting character) is an argument to specify point shapes
 
 ```{r, echo=FALSE, message=FALSE}
 d = data.frame(p = c(0:25))
@@ -136,7 +136,7 @@ plot(x, y, pch = 24, col="red", bg="green")
 
 ## Task
 
-- plot data points in your favoriout color and shape
+- plot data points in your favorite color and shape
 
 ## Plot Line {#slideSty40}
 
@@ -229,7 +229,7 @@ text(0, 6, "6. 'twodash'" ,  adj=c(0,.5))
 
 ## Task
 
-- plot data points and line in your favoriout color and shape 
+- plot data points and line in your favorite color and shape 
 
 
 ## Plot Title {#slideSty40}
@@ -269,7 +269,7 @@ lines(x, z, col="blue")
 
 ## Task
 
-- plot data points and line in your favoriout color and shape 
+- plot data points and line in your favorite color and shape 
 
 
 ## Fixing axis limits {#slideSty60}
@@ -432,8 +432,8 @@ dev.off()
 
 ## Saving Plots for Publication
 - In **PNG** format, specify resolution using **res** 
-- **res** should be atleast 300 for publications  and 600 for presenation
-- Also don't forget to specify **units**
+- **res** should be at least 300 for publications  and 600 for presentation
+- Also, don't forget to specify **units**
 
 ```{r, eval=FALSE}
 png("figure-1.png", width = 4, height = 5, units = 'in', res = 600)

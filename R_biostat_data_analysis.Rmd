@@ -17,10 +17,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Useful functions:
 
-- sum(x)	  --> Sums the elements in x
-- prod(x)	  --> Product of the elements in x
-- max(x)	  --> Maximum element in x
-- min(x)	  --> Minimum element in x
+- sum(x)      --> Sums the elements in x
+- prod(x)      --> Product of the elements in x
+- max(x)      --> Maximum element in x
+- min(x)      --> Minimum element in x
 - range(x)  --> Range (min to max) of elements in x
 
 
@@ -31,10 +31,10 @@ Useful functions:
 - mean(x)   --> Mean (average value) of elements in x.
 - median(x) --> Median  (middle  value)  of  elements  in x
 - var(x)    --> Variance of elements in x
-- sd(x)	    --> Standard deviation of element in x
-- cor(x,y)	--> Correlation between x and y
-- cov(x,y)	--> Covariance between x and y
-- quantile(x,p)	--> The pth quantile of x
+- sd(x)        --> Standard deviation of element in x
+- cor(x,y)    --> Correlation between x and y
+- cov(x,y)    --> Covariance between x and y
+- quantile(x,p)    --> The pth quantile of x
 
 
 ## R Biostat. basics
@@ -86,10 +86,10 @@ boxplot(Age ~ Stage, patients.df
 
 ## R Biostat. basics
 
-T-test and Wilcoxcon rank sum test
+T-test and Wilcoxon rank sum test
 
 - T-test measures the difference in mean between two independent populations [assumes normal distribution]
-- Wilcoxcon rank sum test measures the difference in median between two independent populations [non-parametric]
+- Wilcoxon rank sum test measures the difference in the median between two independent populations [non-parametric]
 
 
 ## R Biostat. basics
@@ -101,7 +101,7 @@ boxplot(TumorVolume ~ Gender, patients.df
 
 ## R Biostat. basics
 
-Let's use the wilcoxcon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+Let's use the Wilcoxon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
 
 ```{r}
   wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
@@ -120,7 +120,7 @@ plot(patients.df$Age,patients.df$TumorVolume)
 
 ## R Biostat. basics
 
-- Pearson product moment correlation :The Pearson correlation evaluates the linear relationship between two continuous variables. 
+- Pearson product moment correlation: The Pearson correlation evaluates the linear relationship between two continuous variables. 
 - Spearman rank-order correlation: The Spearman correlation evaluates the monotonic relationship between two continuous or ordinal variables.
 
 ## R Biostat. basics
