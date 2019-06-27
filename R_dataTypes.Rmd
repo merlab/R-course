@@ -250,7 +250,7 @@ x
 
 ## List - indexing
 
-One square bracket `[]` will retrieve the box, while double square brackets would upack the box
+One square bracket `[]` will retrieve the box, while double square brackets would unpack the box
 
 ```{r}
 patientsID = c("p1", "p2", "p3", "p4", "p5") 
@@ -387,7 +387,7 @@ if(x<2 && y == "drink"){
 
 Loops are used to repeat a block of code until a condition is satisfied 
 
-There are two flow structues for loops, i.e., `for` loops and `while` loops
+There are two flow structures for loops, i.e., `for` loops and `while` loops
 
 
 ## for loops
@@ -403,7 +403,7 @@ for(letter in myVec){
 
 ## for loops
 
-One can also iterate through a vector using its indecies
+One can also iterate through a vector using its indices
 
 ```{r}
 myVec <- c(2, 5, 21)
@@ -416,7 +416,7 @@ Note: `seq_along(myVec)` is a built-in function that might be a better option th
 
 ## while loops
 
-Repeats executing the code enclosed while a condition is satisified
+Repeats executing the code enclosed while a condition is satisfied
 
 ```{r}
 myVec <- c("a","b","c")
