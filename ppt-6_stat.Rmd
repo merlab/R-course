@@ -47,7 +47,7 @@ patients.df <- data.frame(
   "ID"=paste0("p",1:100)
   ,"Gender"=factor(sample(c("F","M"),100,replace = T))
   ,"Stage"=factor(sample(c("I","II","III","IV"),100,replace = T))
-  ,"Age"=rgamma(100,shape = 50)
+  ,"Age"=as.integer(rgamma(100,shape = 50))
   ,"TumorVolume"=rgamma(100,shape = 10)
   ,stringsAsFactors = F)
 
@@ -60,6 +60,7 @@ head(patients.df)
 
 ```{r}
 quantile(patients.df$Age)
+summary(patients.df$Age)
 ```
 
 ## R Biostat. basics
