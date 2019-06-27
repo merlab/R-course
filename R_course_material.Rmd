@@ -243,7 +243,7 @@ x
 
 ## List - indexing
 
-One square bracket `[]` will retrieve the box, while double square brackets would upack the box
+One square bracket `[]` will retrieve the box, while double square brackets would unpack the box
 
 ```{r}
 patientsID = c("p1", "p2", "p3", "p4", "p5") 
@@ -380,7 +380,7 @@ if(x<2 && y == "drink"){
 
 Loops are used to repeat a block of code until a condition is satisfied 
 
-There are two flow structues for loops, i.e., `for` loops and `while` loops
+There are two flow structures for loops, i.e., `for` loops and `while` loops
 
 
 ## for loops
@@ -396,7 +396,7 @@ for(letter in myVec){
 
 ## for loops
 
-One can also iterate through a vector using its indecies
+One can also iterate through a vector using its indices
 
 ```{r}
 myVec <- c(2, 5, 21)
@@ -409,7 +409,7 @@ Note: `seq_along(myVec)` is a built-in function that might be a better option th
 
 ## while loops
 
-Repeats executing the code enclosed while a condition is satisified
+Repeats executing the code enclosed while a condition is satisfied
 
 ```{r}
 myVec <- c("a","b","c")
@@ -651,7 +651,7 @@ plot(x, y, pch = 19)
 
 ## PCH 
 
-PCH (plotting character) is argument to specify point shapes
+PCH (plotting character) is an argument to specify point shapes
 
 ```{r, echo=FALSE, message=FALSE}
 d = data.frame(p = c(0:25))
@@ -739,7 +739,7 @@ plot(x, y, pch = 24, col="red", bg="green")
 
 ## Task
 
-- plot data points in your favoriout color and shape
+- plot data points in your favorite color and shape
 
 ## Plot Line {#slideSty40}
 
@@ -832,7 +832,7 @@ text(0, 6, "6. 'twodash'" ,  adj=c(0,.5))
 
 ## Task
 
-- plot data points and line in your favoriout color and shape 
+- plot data points and line in your favorite color and shape 
 
 
 ## Plot Title {#slideSty40}
@@ -872,7 +872,7 @@ lines(x, z, col="blue")
 
 ## Task
 
-- plot data points and line in your favoriout color and shape 
+- plot data points and line in your favorite color and shape 
 
 
 ## Fixing axis limits {#slideSty60}
@@ -1008,8 +1008,8 @@ dev.off()
 
 ## Saving Plots for Publication
 - In **PNG** format, specify resolution using **res** 
-- **res** should be atleast 300 for publications  and 600 for presenation
-- Also don't forget to specify **units**
+- **res** should be at least 300 for publications  and 600 for presentation
+- Also, don't forget to specify **units**
 
 ```{r, eval=FALSE}
 png("figure-1.png", width = 4, height = 5, units = 'in', res = 600)
@@ -1034,12 +1034,12 @@ head(iris)
 
 ## Packages
 - R comes with basic functions that you will use on a daily basis
-- Sometime you will required spelize functions, written by others
-- R package is collection of functions and data written for a specific task
+- Sometime you will require specialized functions, written by others
+- R package is a collection of functions and data written for a specific task
 
 ## Install a package
 - To install an R package use the command **install.packages("package name")**
-- In this example we install the package **beeswarm**
+- In this example, we install the package **beeswarm**
 
 ```{r, eval=FALSE}
 install.packages("beeswarm")
@@ -1073,7 +1073,7 @@ beeswarm(iris[, c("Sepal.Length", "Sepal.Width")],
 - Google the problem
 - Look into CRAN website www.cran.r-project.org/web/packages/
 - Look into Bioconductor repo www.bioconductor.org
-- **Note :** packages at Bioconductor uses different command to install that is:
+- ** Note:** packages at Bioconductor uses a different command to install that is:
 
 ```{r, eval=FALSE}
 BiocManager::install("package name")
@@ -1134,7 +1134,7 @@ head(myxl)
 
 
 ## Caution
-- Large Excel files may take long time and memory to read/write
+- Large Excel files may take a long time and memory to read/write
 - Use R native **RDS**  files to read and write the data during the analysis
 - To share data, prefer **CSV** format then Excel
 - Save only final results/data in Excel format
@@ -1147,10 +1147,10 @@ head(myxl)
 
 Useful functions:
 
-- sum(x)	  --> Sums the elements in x
-- prod(x)	  --> Product of the elements in x
-- max(x)	  --> Maximum element in x
-- min(x)	  --> Minimum element in x
+- sum(x)      --> Sums the elements in x
+- prod(x)      --> Product of the elements in x
+- max(x)      --> Maximum element in x
+- min(x)      --> Minimum element in x
 - range(x)  --> Range (min to max) of elements in x
 
 
@@ -1161,10 +1161,10 @@ Useful functions:
 - mean(x)   --> Mean (average value) of elements in x.
 - median(x) --> Median  (middle  value)  of  elements  in x
 - var(x)    --> Variance of elements in x
-- sd(x)	    --> Standard deviation of element in x
-- cor(x,y)	--> Correlation between x and y
-- cov(x,y)	--> Covariance between x and y
-- quantile(x,p)	--> The pth quantile of x
+- sd(x)        --> Standard deviation of element in x
+- cor(x,y)    --> Correlation between x and y
+- cov(x,y)    --> Covariance between x and y
+- quantile(x,p)    --> The pth quantile of x
 
 
 ## R Biostat. basics
@@ -1216,10 +1216,10 @@ boxplot(Age ~ Stage, patients.df
 
 ## R Biostat. basics
 
-T-test and Wilcoxcon rank sum test
+T-test and Wilcoxon rank sum test
 
 - T-test measures the difference in mean between two independent populations [assumes normal distribution]
-- Wilcoxcon rank sum test measures the difference in median between two independent populations [non-parametric]
+- Wilcoxon rank sum test measures the difference in the median between two independent populations [non-parametric]
 
 
 ## R Biostat. basics
@@ -1231,7 +1231,7 @@ boxplot(TumorVolume ~ Gender, patients.df
 
 ## R Biostat. basics
 
-Let's use the wilcoxcon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+Let's use the Wilcoxon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
 
 ```{r}
   wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
@@ -1250,7 +1250,7 @@ plot(patients.df$Age,patients.df$TumorVolume)
 
 ## R Biostat. basics
 
-- Pearson product moment correlation :The Pearson correlation evaluates the linear relationship between two continuous variables. 
+- Pearson product moment correlation: The Pearson correlation evaluates the linear relationship between two continuous variables. 
 - Spearman rank-order correlation: The Spearman correlation evaluates the monotonic relationship between two continuous or ordinal variables.
 
 ## R Biostat. basics
@@ -1265,9 +1265,14 @@ cor.test(patients.df$Age,patients.df$TumorVolume)
 # Project
 
 ## Project
+
 Download the following file from:
 
-
 1- Find the if there is a significant difference between TNBC and nonTNBC samples based on these genes [ESR1, PGR, ERBB2] and show that in a plot.  
-2- Compute the pairwise correlation between all the samples and show that in a plot. 
+2- Compute the pairwise correlation between all the samples and show that in a plot. [hint: use `corrplot` package]
+
+
+
+
+
 
