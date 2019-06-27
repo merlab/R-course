@@ -42,10 +42,13 @@ Useful functions:
 Example: patients data
 
 ```{r, results='hold'}
+set.seed(21341)
 patients.df <- data.frame(
   "ID"=paste0("p",1:100)
-  ,"Age"=sample(30:70,100,replace = T)
+  ,"Gender"=factor(sample(c("F","M"),100,replace = T))
   ,"Stage"=factor(sample(c("I","II","III","IV"),100,replace = T))
+  ,"Age"=rgamma(100,shape = 50)
+  ,"TumorVolume"=rgamma(100,shape = 10)
   ,stringsAsFactors = F)
 
 head(patients.df)
@@ -55,36 +58,71 @@ head(patients.df)
 
 ## R Biostat. basics
 
-Example: patients data
-
 ```{r}
-
 quantile(patients.df$Age)
-hist(patients.df$Age)
-
-
 ```
 
+## R Biostat. basics
+
+```{r}
+hist(patients.df$Age)
+```
 
 
 ## R Biostat. basics
 
-Example: patients data
-
-```{r, results='hold'}
+```{r}
 summary(patients.df$Stage)
+table(patients.df$Stage)
+```
 
-boxplot(Age ~ Stage, patients.df)
+## R Biostat. basics
 
+```{r}
+boxplot(Age ~ Stage, patients.df
+  , ylab="Age",xlab="Stage",main="Patients data")
 ```
 
 
+## R Biostat. basics
+
+T-test and Wilcoxcon rank sum test
+
+- T-test measures the difference in mean between two independent populations [assumes normal distribution]
+- Wilcoxcon rank sum test measures the difference in median between two independent populations [non-parametric]
 
 
+## R Biostat. basics
+
+```{r}
+boxplot(TumorVolume ~ Gender, patients.df
+  , ylab="TumorVolume",xlab="Gender",main="Patients data")
+```
+
+## R Biostat. basics
+
+Let's use the wilcoxcon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+
+```{r}
+  wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
+              ,y = patients.df$TumorVolume[patients.df$Gender=="F"]
+              ,mu = 0,alternative = "two.sided",paired = F,T)
+```
 
 
+## R Biostat. basics
+Let's check the correlation between Age and Tumor volume
 
+```{r}
+plot(patients.df$Age,patients.df$TumorVolume)
+```
 
+## R Biostat. basics
+Let's check the correlation between Age and Tumor volume
+
+```{r}
+cor.test(patients.df$Age,patients.df$TumorVolume)
+```
 
 
 
