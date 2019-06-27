@@ -102,7 +102,7 @@ boxplot(TumorVolume ~ Gender, patients.df
 
 ## R Biostat. basics
 
-Let's use the Wilcoxon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+Let's use the Wilcoxon rank sum test to see if female and male patients are significantly different in regards to Tumor Volume
 
 ```{r}
   wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
