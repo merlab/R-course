@@ -189,6 +189,7 @@ x = matrix(
    nrow=2,              # number of rows 
    ncol=3)             # number of columns 
 x
+dim(x)  # return the dimensions of a matrix; #rows and #columns 
 x[2,3] # note the ',' to indiacte row and column indexing
 ```
 
@@ -406,11 +407,12 @@ One can also iterate through a vector using its indecies
 
 ```{r}
 myVec <- c(2, 5, 21)
-for(i in seq_along(myVec)){
+for(i in 1:length(myVec)){
   print(myVec[i] + 3)
 }
 ```
-Note: seq_along is a built-in function. You might be tempted to do `1:length(myVec)`. This breaks when `length(myVec)` is accidentally 0.
+
+Note: `seq_along(myVec)` is a built-in function that might be a better option than using `1:length(myVec)`. The latter could break when `length(myVec)` is accidentally 0.
 
 ## while loops
 
@@ -514,15 +516,14 @@ R also provides users with the ability to write their own custom functions
 
 ```{r}
 printThanks <- function(){
-  return("Thank you very much for running this code")
+  print("Thank you very much for running this code")
 }
 
-printThanks
+printThanks()
 ```
 
 ## functions
 
-You could add also parameters to your function
 ```{r}
 isEven <- function(x){
   if(x%%2==0){
@@ -530,9 +531,9 @@ isEven <- function(x){
   }
   return(FALSE)
 }
-
 isEven(4)
-isEven(3)
+x <- isEven(3)
+x
 ```
 
 ## functions
@@ -589,9 +590,9 @@ sapply(myVec, isEven)
 
 ## apply
 
-`apply`, unlike sapply and lapply takes 3 arguments: the data to apply over, which dimensions to apply over, and the function to apply. 
+`apply`, unlike sapply and lapply, takes 3 arguments: the data to apply over, which dimensions to apply over, and the function to apply. 
 
-Heres a silly example, using the built-in `sum` function, which returns the sum of a vector:
+Heres a simple example, using the built-in `sum` function, which returns the sum of a vector:
 ```{r, results="hold"}
 my.mat <- matrix(1:4, nrow=2, ncol=2)
 my.mat
@@ -611,8 +612,23 @@ Examples:
 
 
 
+## Exercise
+Write a function will return T if a given element exists in a given vector.
 
 
+## Exercise
+
+```{r}
+exists <- function(vector, element){
+  
+  for (v1 in vector) {
+    if(v1 == element){
+      return(TRUE)
+    }
+  }
+  return(FALSE)
+}
+```
 
 
 
