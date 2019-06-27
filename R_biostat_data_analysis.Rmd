@@ -117,6 +117,12 @@ Let's check the correlation between Age and Tumor volume
 plot(patients.df$Age,patients.df$TumorVolume)
 ```
 
+
+## R Biostat. basics
+
+- Pearson product moment correlation :The Pearson correlation evaluates the linear relationship between two continuous variables. 
+- Spearman rank-order correlation: The Spearman correlation evaluates the monotonic relationship between two continuous or ordinal variables.
+
 ## R Biostat. basics
 Let's check the correlation between Age and Tumor volume
 
