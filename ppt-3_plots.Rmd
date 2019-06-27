@@ -1,0 +1,448 @@
+---
+title: "Plot"
+author: ""
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+<style> #slideSty20 > p { margin-top: -20px; } </style>
+<style> #slideSty30 > p { margin-top: -30px; } </style>
+<style> #slideSty40 > p { margin-top: -40px; } </style>
+<style> #slideSty50 > p { margin-top: -50px; } </style>
+<style> #slideSty60 > p { margin-top: -60px; } </style>
+<style> #slideSty70 > p { margin-top: -70px; } </style>
+<style> #slideSty80 > p { margin-top: -80px; } </style>
+
+# Plots
+
+## Plots {#slideSty40}
+Plotting in R is easy:
+
+```{r}
+x = 1:10
+y = x**2
+plot(x, y)
+```
+
+## Plot {#slideSty40}
+Lets change color
+
+```{r}
+plot(x, y, col = "red")
+```
+
+## Plot {#slideSty40}
+Lets change point type
+
+```{r}
+plot(x, y, pch = 19)
+```
+
+## PCH 
+
+PCH (plotting character) is an argument to specify point shapes
+
+```{r, echo=FALSE, message=FALSE}
+d = data.frame(p = c(0:25))
+p <- ggplot() + scale_y_continuous(name = "") + scale_x_continuous(name = "")
+p <- p + scale_shape_identity()
+p <- p + geom_point(data = d, mapping = aes(x = p%%6, y = p%/%6, shape = p), 
+                    size = 5, fill = "#91bfdb", color="black")
+
+p <- p + geom_text(data = d, mapping = aes(x = p%%6, y = p%/%6 + 0.25, label = p),
+                   size = 3) + scale_y_reverse()
+p+theme_void()
+```
+
+## PCH 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-4c4e{color:#3531ff;border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <td class="tg-4c4e">pch = 0, square</td>
+    <td class="tg-4c4e">pch = 13, circle cross</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 1, circle</td>
+    <td class="tg-4c4e">pch = 14, square and triangle down</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 2, triangle point up</td>
+    <td class="tg-4c4e">pch = 15, filled square</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 3, plus</td>
+    <td class="tg-4c4e">pch = 16, filled circle</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 4, cross</td>
+    <td class="tg-4c4e">pch = 17, filled triangle point-up</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 5, diamond</td>
+    <td class="tg-4c4e">pch = 18, filled diamond</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 6, triangle point down</td>
+    <td class="tg-4c4e">pch = 19, solid circle</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 7, square cross</td>
+    <td class="tg-4c4e">pch = 20, bullet (smaller circle)</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 8, star</td>
+    <td class="tg-4c4e">pch = 21, filled circle blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 9, diamond plus</td>
+    <td class="tg-4c4e">pch = 22, filled square blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 10, circle plus</td>
+    <td class="tg-4c4e">pch = 23, filled diamond blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 11, triangles up and down</td>
+    <td class="tg-4c4e">pch = 24, filled triangle point-up blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 12, square plus</td>
+    <td class="tg-4c4e">pch = 25, filled triangle point down blue</td>
+  </tr>
+</table>
+
+
+## Plot {#slideSty40}
+- For PCH 21 to 25, background color can be specified
+
+```{r}
+plot(x, y, pch = 24, col="red", bg="green")
+```
+
+
+## Task
+
+- plot data points in your favorite color and shape
+
+## Plot Line {#slideSty40}
+
+The option `"type"` can change the plot type
+
+```{r}
+plot(x, y, type = "l")
+```
+
+
+## Plot type
+
+<table class="tg">
+  <tr>
+    <td class="tg-4c4e">"p"</td>
+    <td class="tg-4c4e">for points</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"l"</td>
+    <td class="tg-4c4e">for lines</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"b"</td>
+    <td class="tg-4c4e">for both</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"c"</td>
+    <td class="tg-4c4e">for the lines part alone of "b"</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"o"</td>
+    <td class="tg-4c4e">for both 'overplotted'</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"h"</td>
+    <td class="tg-4c4e">for 'histogram' like (or 'high-density') vertical lines</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"s"</td>
+    <td class="tg-4c4e">for stair steps</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"S"</td>
+    <td class="tg-4c4e">for other steps</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"n"</td>
+    <td class="tg-4c4e">for no plotting</td>
+  </tr>
+</table>
+
+
+## Plot {#slideSty40}
+Lets plot both point and line
+
+```{r}
+plot(x, y, type = "o")
+```
+
+## Change line type {#slideSty40}
+The option `"lty"` can change the line type
+
+```{r}
+plot(x, y, type = "o", lty=2)
+```
+
+
+## Line types in R
+```{r, echo=FALSE, message=FALSE}
+par(mar=c(0,0,0,0))
+# Set up the plotting area
+plot(NA, xlim=c(0,1), ylim=c(6.5, -0.5),
+    xaxt="n", yaxt="n",
+    xlab=NA, ylab=NA )
+# Draw the lines
+for (i in 0:6) {
+    points(c(0.25,1), c(i,i), lty=i, lwd=2, type="l")
+}
+# Add labels
+text(0, 0, "0. 'blank'"   ,  adj=c(0,.5))
+text(0, 1, "1. 'solid'"   ,  adj=c(0,.5))
+text(0, 2, "2. 'dashed'"  ,  adj=c(0,.5))
+text(0, 3, "3. 'dotted'"  ,  adj=c(0,.5))
+text(0, 4, "4. 'dotdash'" ,  adj=c(0,.5))
+text(0, 5, "5. 'longdash'",  adj=c(0,.5))
+text(0, 6, "6. 'twodash'" ,  adj=c(0,.5))
+###dev.off()
+```
+
+
+## Task
+
+- plot data points and line in your favorite color and shape 
+
+
+## Plot Title {#slideSty40}
+Give plot a title
+
+```{r}
+plot(x, y, main = "my 1st plot")
+```
+
+## Axis Name {#slideSty40}
+Change plot axis name
+
+```{r}
+plot(x, y, main = "my 1st plot", xlab = "number", ylab = "value")
+```
+
+## Adding more to a plot {#slideSty50}
+```{r}
+x = 1:10
+y = x**2
+z = y + 1
+plot(x, y, pch=19, col="red")
+```
+
+
+## Adding more to a plot {#slideSty80}
+```{r}, fig.height = 4.0,  fig.align = "center"}
+x = 1:10 
+y = x**2 
+z = y + 10
+plot(x, y, pch=19, col="red")
+lines(x, y, col="red")
+points(x, z, col="blue")
+lines(x, z, col="blue")
+```
+
+
+## Task
+
+- plot data points and line in your favorite color and shape 
+
+
+## Fixing axis limits {#slideSty60}
+- In R plots are static 
+- Adding new points can't change the axis limits
+```{r}
+plot(x, y, pch=19, col="red")
+lines(x, y, col="red")
+```
+
+
+## Fixing axis limits {#slideSty50}
+To overcome this issue specify the axis limits in advance
+```{r}
+ylimit = range(c(y,z))
+plot(x, y, col="red", pch=19, ylim = ylimit)
+lines(x, y, col="red")
+points(x, z, col="blue", pch=15)
+lines(x, z, col="blue")
+```
+
+## Adding legend {#slideSty50}
+```{r}
+plot(x, y, col="red", pch=19, ylim = c(1,110))
+lines(x, y, col="red")
+points(x, z, col="blue", pch=15)
+lines(x, z, col="blue")
+legend(1,100,legend=c("y","z"), col=c("red","blue"), pch=c(19,15))
+```
+
+
+## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors")
+```
+
+# How do we change the bar color?
+
+## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors", col="red")
+```
+
+
+# How do we change border color?
+
+## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors", col="red", border = NA)
+```
+
+
+## Barplot (Stacked) {#slideSty70}
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+data = rbind(raptors, gsw)
+colnames(data) = c("Q1", "Q2", "Q3", "Q4")
+barplot(data, col=c("red", "gold"))
+```
+
+## Barplot (Grouped)
+```{r}
+barplot(data, col=c("red", "gold"), beside=TRUE)
+```
+
+## Barplot (add legend){#slideSty70}
+```{r, fig.width= 8.0, fig.height = 6.0, fig.align = "center"}
+barplot(data, col=c("red","gold"), beside=TRUE, legend=rownames(data),
+        args.legend = list(x="topright"))
+```
+
+
+# Boxplot
+
+
+## Boxplot {#slideSty30}
+Same as barplot but data should be in column:
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+boxplot(raptors, gsw)
+```
+
+
+## Boxplot {#slideSty30}
+Add names to the box:
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+boxplot(raptors, gsw, names=c("Raptors","GSW"))
+```
+
+
+## Boxplot (color) {#slideSty30}
+Here HTML color codes are used: 
+```{r}
+boxplot(raptors, gsw, names=c("Raptors", "GSW"), 
+        col=c("#d7301f","#dfc27d"), 
+        border=c("#7f0000", "#8c510a"), main="NBA Finals")
+```
+
+
+## Task
+
+- Add one more boxplot with data:
+```{r}
+bucks = c(23, 28, 25, 32)
+```
+
+
+## Using formula {#slideSty50}
+Here HTML color codes are used: 
+```{r}
+bucks = c(23, 28, 25, 32)
+df=data.frame(score=c(raptors, gsw, bucks), 
+              team= c(rep("Raptors", 4), rep("GSW", 4), rep("Bucks", 4)))
+boxplot(score~team, data=df)
+```
+
+## Using formula {#slideSty50}
+Here HTML color codes are used: 
+```{r}
+bucks = c(23, 28, 25, 32)
+df=data.frame(score=c(raptors, gsw, bucks), 
+              team=c(rep("Raptors",4), rep("GSW",4), rep("Bucks",4)))
+boxplot(score~team, data=df)
+```
+
+## Task
+
+- Add one more boxplot with data:
+```{r}
+
+```
+
+
+
+## Saving Plots for Publication
+- For publications use PDF or PNG format
+- To save plot, open file just before plot function
+- Don't forget to close the file using **dev.off()**
+```{r, eval=FALSE}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+bucks = c(23, 28, 25, 32)
+
+pdf("NBA_finals.pdf", width = 4, height = 5)
+
+boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"), 
+        col=c("#d7301f","#dfc27d", "#41ab5d"), 
+        border=c("#7f0000", "#8c510a", "#00441b"), main="NBA Finals")
+
+dev.off()
+```
+
+
+## Saving Plots for Publication
+- In **PNG** format, specify resolution using **res** 
+- **res** should be at least 300 for publications  and 600 for presentation
+- Also, don't forget to specify **units**
+
+```{r, eval=FALSE}
+png("figure-1.png", width = 4, height = 5, units = 'in', res = 600)
+
+boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"), 
+        col=c("#d7301f","#dfc27d", "#41ab5d"), 
+        border=c("#7f0000", "#8c510a", "#00441b"), main="NBA Finals")
+
+dev.off()
+```
+
+

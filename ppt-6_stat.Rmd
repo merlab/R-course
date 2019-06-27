@@ -1,0 +1,146 @@
+---
+title: "R for beginners Notebook"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# R Biostat. and data analysis
+
+## R Biostat. basics
+
+Useful functions:
+
+- sum(x)      --> Sums the elements in x
+- prod(x)      --> Product of the elements in x
+- max(x)      --> Maximum element in x
+- min(x)      --> Minimum element in x
+- range(x)  --> Range (min to max) of elements in x
+
+
+## R Biostat. basics
+
+Useful functions:
+
+- mean(x)   --> Mean (average value) of elements in x.
+- median(x) --> Median  (middle  value)  of  elements  in x
+- var(x)    --> Variance of elements in x
+- sd(x)        --> Standard deviation of element in x
+- cor(x,y)    --> Correlation between x and y
+- cov(x,y)    --> Covariance between x and y
+- quantile(x,p)    --> The pth quantile of x
+
+
+## R Biostat. basics
+
+Example: patients data
+
+```{r, results='hold'}
+set.seed(21341)
+patients.df <- data.frame(
+  "ID"=paste0("p",1:100)
+  ,"Gender"=factor(sample(c("F","M"),100,replace = T))
+  ,"Stage"=factor(sample(c("I","II","III","IV"),100,replace = T))
+  ,"Age"=rgamma(100,shape = 50)
+  ,"TumorVolume"=rgamma(100,shape = 10)
+  ,stringsAsFactors = F)
+
+head(patients.df)
+
+
+```
+
+## R Biostat. basics
+
+```{r}
+quantile(patients.df$Age)
+```
+
+## R Biostat. basics
+
+```{r}
+hist(patients.df$Age)
+```
+
+
+## R Biostat. basics
+
+```{r}
+summary(patients.df$Stage)
+table(patients.df$Stage)
+```
+
+## R Biostat. basics
+
+```{r}
+boxplot(Age ~ Stage, patients.df
+  , ylab="Age",xlab="Stage",main="Patients data")
+```
+
+
+## R Biostat. basics
+
+T-test and Wilcoxon rank sum test
+
+- T-test measures the difference in mean between two independent populations [assumes normal distribution]
+- Wilcoxon rank sum test measures the difference in the median between two independent populations [non-parametric]
+
+
+## R Biostat. basics
+
+```{r}
+boxplot(TumorVolume ~ Gender, patients.df
+  , ylab="TumorVolume",xlab="Gender",main="Patients data")
+```
+
+## R Biostat. basics
+
+Let's use the Wilcoxon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+
+```{r}
+  wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
+              ,y = patients.df$TumorVolume[patients.df$Gender=="F"]
+              ,mu = 0,alternative = "two.sided",paired = F,T)
+```
+
+
+## R Biostat. basics
+Let's check the correlation between Age and Tumor volume
+
+```{r}
+plot(patients.df$Age,patients.df$TumorVolume)
+```
+
+
+## R Biostat. basics
+
+- Pearson product moment correlation: The Pearson correlation evaluates the linear relationship between two continuous variables. 
+- Spearman rank-order correlation: The Spearman correlation evaluates the monotonic relationship between two continuous or ordinal variables.
+
+## R Biostat. basics
+Let's check the correlation between Age and Tumor volume
+
+```{r}
+cor.test(patients.df$Age,patients.df$TumorVolume)
+```
+
+
+# Project
+
+## Project
+1- Download the following file from: 
+https://drive.google.com/drive/folders/1Jqa5KxKyfYqMMkk1IOwKihOZw-IeedxT
+
+2- Find the if there is a significant difference between TNBC and nonTNBC samples based on these genes [ESR1, PGR, ERBB2] and show that in a plot.
+3- Compute the pairwise correlation between all the samples and show that in a plot. 
+
+Hint: Install and use package **corrplot**
+
+
+

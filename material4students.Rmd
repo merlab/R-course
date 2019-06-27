@@ -1,0 +1,1312 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+# R data-types and structures
+
+## Variable
+
+A named container or storage that is used to reference a value in the code.
+
+- This value can be of many types:
+    + numeric: ```1, 2, 3.4```
+    + character: ```"a", "book", "c"```
+    + logical: ```TRUE, FALSE``` or simply ```T, F```
+    + Integers, complex, and factors
+    
+## Variable
+
+* Constraints on names:
+    + must starts with a letter or a dot not followed by a number.
+    + can only contain letters, numbers, underscore and the dot character "."
+    
+    ``` var1, .var1, var.name, v1 ```
+    
+    ``` 1v, .1v, var-1, var#1 ``` 
+
+## Variable
+
+```<-``` and ```=``` are used for assignment of values in R 
+
+```{r}
+  x <- 2
+  y <- 3
+  x+y
+```
+
+* Note that R variables are dynamically typed
+```{r}
+  x <- 2
+  x <- "hello"
+```
+
+
+## Vector
+A `vector` is the simplest data structure in R. it represents a container for a set of elements of the same data type. 
+-  Examples:
+```{r}
+  c(1,3,5)
+  length(c("test"))
+  class(c(TRUE,TRUE,FALSE))
+```
+
+## Vector
+`c` function is used to concatenate vectors.
+```{r}
+  x <- c(1,3,5)
+  y <- c(2,4,6)
+  z <- c(x,y)
+  z
+```
+
+Remember: vectors have a single data type
+```{r}
+  x <- c(1,3,5)
+  y <- c("a","b")
+  c(x,y)
+```
+
+## Vector
+Arithmetics are performed on vectors member-by-member
+```{r}
+  x <- c(1:3) # R way to create a sequence of numbers
+  x
+  x + 1
+```
+
+## Vector
+and this extends to operations between vectors
+```{r}
+  x <- c(1,3,5)
+  y <- c(2,4,6)
+  x+y
+```
+
+## Vector
+What will happen if the two vectors are of different lengths?
+```{r, warning=FALSE}
+  x <- c(1,3,5)
+  y <- c(2,4,6,8,10)
+  z <- x+y
+```
+
+
+## Vector
+What will happen if the two vectors are of different lengths?
+```{r, warning=FALSE}
+  x <- c(1,3,5)
+  y <- c(2,4,6,8,10)
+  z <- x+y
+  z
+```
+
+## Vector
+Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign it to a variable. 
+
+Try subtracting the two vectors. What happened?
+
+## Vector
+Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign it to a variable. 
+
+Try subtracting the two vectors. What happened?
+```{r}
+x <- c(T,F,T)
+y <- c(3,4,5)
+x-y
+```
+
+logical values in R can be coerced to integers, i.e. `1` for `TRUE` and `0` for `FALSE`
+
+## Vector
+Retrieving elements from a vector is done by `indexing`
+
+-  There are many ways to use indexing and the simplest is `numeric indexing`, i.e. a number that represents the position of an element in a vector.
+
+-  `[]` is used for indexing. In R, indexing starts from `1`
+
+```{r}
+  x <- c(1,3,5,7,9)
+  x[2]
+  x[c(3,5)]
+```
+
+## Vector - Indexing
+`indexing` can be used also for changing values in a vector
+
+```{r}
+  x <- c(1,3,5,7,9)
+  x[2] <- 4 
+  x
+  x[c(3,5)] <- c(6,10)
+  x
+  x[-1] # negative indexing is used to remove elements
+```
+
+## Vector - Indexing
+Logical values can be used for `indexing` too.
+
+```{r}
+  x <- c(1,3,5,7,9)
+  x[c(T,F,T,F,T)]
+  x[c(F,F,T,F,T)] <- c(6,10)
+  x
+  y <- x[c(T,F)] # what will happen??
+```
+
+## Vector - Indexing
+Logical values can be used for `indexing` too.
+
+```{r}
+  x <- c(1,3,5,7,9)
+  y <- x[c(T,F)] # what will happen??
+  y
+```
+
+## Named Vectors 
+
+R allows us to give names to each element in a vector, and use them to index:
+```{r}
+x <- c(2,4,6,8,10)
+names(x) <- c("A", "B", "C", "D", "E")
+x
+x[c("A", "D")]
+```
+
+## Matrix
+A `matrix` is a collection of data elements arranged in a two-dimensional rectangular layout
+```{r}
+x = matrix( 
+   c(2, 4, 3, 1, 5, 7), # the data elements 
+   nrow=2,              # number of rows 
+   ncol=3)             # number of columns 
+x
+dim(x)  # return the dimensions of a matrix; #rows and #columns 
+x[2,3] # note the ',' to indiacte row and column indexing
+```
+
+## Matrix - Names
+
+Matrix can have row and/or column names:
+
+```{r}
+x <- matrix(data=1:10, nrow=2, ncol=5)
+rownames(x) <- c("A", "B")
+x
+x["B", c(2,5)]
+x["A",]
+```
+
+
+
+## Dataframe
+A `dataframe` is used for storing data tables. It represents a list of vectors of equal length and can store vectors of different types.
+
+```{r}
+patientsID = c("p1", "p2", "p3") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, NA) 
+df = data.frame(patientsID, age, alive)       # df is a data frame
+df
+```
+
+## Dataframe
+
+$ is another way to index columns in a named data.frame
+
+```{r}
+df[,"alive"]
+df$alive
+```
+
+## Dataframe
+
+```{r}
+patientsID = c("p1", "p2", "p3") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, NA) 
+df = data.frame(patientsID, age, alive)       # df is a data frame
+df$patientsID  # factor type, we will talk about it later
+df = data.frame(patientsID, age, alive, stringsAsFactors = F) 
+df$patientsID
+```
+
+
+## List
+A `list` is a generic vector that can contain multiple data types. Think of it as a vector of boxes, you can put anything in the box.
+```{r}
+x <- list(1, "a", c(TRUE, FALSE))
+x
+```
+
+
+## List - indexing
+
+One square bracket `[]` will retrieve the box, while double square brackets would unpack the box
+
+```{r}
+patientsID = c("p1", "p2", "p3", "p4", "p5") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, TRUE, NA, FALSE) 
+x <- list(patientsID,age,alive)
+x[2]
+x[[2]]
+```
+
+
+## List - indexing
+
+```{r}
+patientsID = c("p1", "p2", "p3", "p4", "p5") 
+age = c(25, 35, 55) 
+x <- list(patientsID,age)
+x[[2]][3]
+```
+
+## List - indexing
+
+Named lists provide another way to index them using the operator `$`
+
+```{r}
+patientsID = c("p1", "p2", "p3", "p4", "p5") 
+age = c(25, 35, 55) 
+x <- list("sampleID"=patientsID,"age"=age)
+x$age
+x[["sampleID"]]
+```
+
+## R data-types and structures
+
+These are the main data types and structures in R.
+
+We still need to talk about factors!
+
+# R operations
+
+## R Arithmetic operators
+
+```{r, eval=FALSE}
+x <- 5
+y <- 3
++ x       # 5
+- x       # -5
+x + y     # 8
+x - y     # 2
+x * y     # 15
+x / y     # 1.666667
+x ^ y     # 125 , x**y is the same 
+x %% y    # 2
+x %/% y   # 1
+```
+
+## R Relational operators
+```{r, eval=FALSE}
+x <- 5
+y <- 3
+x < y    # FALSE
+x > y    # TRUE
+x <= y   # FALSE
+x >= y   # TRUE
+x == y   # FALSE
+x != y   # TRUE
+
+```
+
+
+## R Logical operators
+
+```{r, eval=FALSE}
+x <- TRUE
+y <- FALSE
+!x       # FALSE  -- NOT
+x && y   # FALSE  -- Logical AND
+x || y   # TRUE   -- Logical OR
+```
+
+
+```{r}
+x <- c(TRUE,TRUE,FALSE)
+y <- c(TRUE,FALSE,FALSE)
+x & y   # element-wise AND
+x | y   # element-wise OR
+```
+
+# R control flow structures
+
+## if-else 
+
+This is a conditional flow structure by which the following steps of the program are dependent on the outcome of the condition.
+
+```{r}
+if(3>2){
+  print("Yes") 
+}
+```
+
+```{r}
+if(3<2){
+  print("Yes") 
+}else{
+  print("No")
+}
+```
+
+## if-else 
+
+```{r}
+if(3<2){
+  print("No") 
+}else if(3>2){
+  print("Yes")
+}else{
+  print("Maybe")
+}
+```
+
+## if-else 
+
+You can make the condition more complex
+```{r}
+x <- 5; y <- "food" 
+if(x<2 && y == "drink"){
+  print("Yes") 
+}else{
+  print("No")
+}
+```
+
+## Loops
+
+Loops are used to repeat a block of code until a condition is satisfied 
+
+There are two flow structures for loops, i.e., `for` loops and `while` loops
+
+
+## for loops
+
+The most common use is to iterate through the elements of a vector
+
+```{r}
+myVec <- c("A", "B", "C")
+for(letter in myVec){
+  print(letter)
+}
+```
+
+## for loops
+
+One can also iterate through a vector using its indices
+
+```{r}
+myVec <- c(2, 5, 21)
+for(i in 1:length(myVec)){
+  print(myVec[i] + 3)
+}
+```
+
+Note: `seq_along(myVec)` is a built-in function that might be a better option than using `1:length(myVec)`. The latter could break when `length(myVec)` is accidentally 0.
+
+## while loops
+
+Repeats executing the code enclosed while a condition is satisfied
+
+```{r}
+myVec <- c("a","b","c")
+i <- 1
+while(i <= length(myVec)){
+  print(myVec[i])
+  i <- i + 1
+}
+```
+
+## Exercise
+
+Create a R object from these vectors and return patients who are females and under the age of 30
+```{r}
+patientsID <- c("p1", "p2", "p3", "p4", "p5")
+age <- c(15, 32, 44, 25, 39)
+gender <- c("F","M","M","F","F")
+```
+
+## Exercise
+
+Create a R object from these vectors and return patients who are females and under the age of 30
+```{r}
+patientsID <- c("p1", "p2", "p3", "p4", "p5")
+age <- c(15, 32, 44, 25, 39)
+gender <- c("F","M","M","F","F")
+
+df <- data.frame(patientsID,age,gender,stringsAsFactors = F)
+df[df$gender=="F" & df$age < 30,]
+```
+
+## Exercise
+
+Create a R object from these vectors and change vector `insure` to `T` for each patient who is a female and above the age of 20
+```{r}
+patientsID <- c("p1", "p2", "p3", "p4", "p5")
+age <- c(15, 32, 44, 25, 39)
+gender <- c("F","M","M","F","F")
+insure <- c(F,F,F,F,F)
+```
+
+## Exercise
+
+Create a R object from these vectors and change vector `insure` to `T` for each patient who is a female and above the age of 20
+```{r}
+df <- data.frame(patientsID,age,gender,insure,stringsAsFactors = F)
+
+for(patientInd in 1:dim(df)[1]){
+  if(df[patientInd,"gender"]=="F" & df[patientInd,"age"]>20){
+    df[patientInd,"insure"] = T
+  }
+}
+
+df[,"insure"]
+
+```
+
+# functions
+
+## functions
+
+R does everything by copying. What do we mean by that?
+
+```{r, results="hide"}
+x <- 3
+y <- x
+x <- 2
+x
+y
+```
+
+
+## functions
+
+R does everything by copying. What do we mean by that?
+
+```{r}
+x <- 3
+y <- x
+x <- 2
+x
+y
+```
+
+
+## functions
+
+-  A `function` is a block of code that can be used multiple times. It is a way to structure the code.
+
+-  R provides many built-in functions that ease writing programs and executing codes.
+
+-  Examples: `print`, `:`, `c`, `in`
+
+## functions
+
+R also provides users with the ability to write their own custom functions
+
+```{r}
+printThanks <- function(){
+  print("Thank you very much for running this code")
+}
+
+printThanks()
+```
+
+## functions
+
+```{r}
+isEven <- function(x){
+  if(x%%2==0){
+    return(TRUE)
+  }
+  return(FALSE)
+}
+isEven(4)
+x <- isEven(3)
+x
+```
+
+## functions
+
+Variables defined inside a function are local to that function.
+
+```{r, results="hide"}
+x <- 5
+testScope <- function(x){
+  return(x+1)
+}
+testScope(4)
+testScope(x)
+x
+```
+
+## functions
+
+Variables defined inside a function are local to that function.
+
+```{r}
+x <- 5
+testScope <- function(x){
+  return(x+1)
+}
+testScope(4)
+testScope(x)
+x
+```
+
+
+
+## *apply
+
+Functions in R become super useful together with the built-in apply functions. *apply helps you apply a function to each element of a vector or row/column of a matrix. 
+
+
+There are 3 main apply functions: `lapply`, `sapply` and `apply`. `lapply` - l stands for list, will return a list. `sapply` s stands for simple, will try to simplify the list. `apply` is `sapply` for matrices and data.frames. 
+
+## sapply
+
+Here is an sapply example:
+```{r}
+isEven <- function(x){
+  if(x%%2==0){
+    return(TRUE)
+  }
+  return(FALSE)
+}
+
+myVec <- c(4,3,2,1)
+sapply(myVec, isEven)
+```
+
+## apply
+
+`apply`, unlike sapply and lapply, takes 3 arguments: the data to apply over, which dimensions to apply over, and the function to apply. 
+
+Heres a simple example, using the built-in `sum` function, which returns the sum of a vector:
+```{r, results="hold"}
+my.mat <- matrix(1:4, nrow=2, ncol=2)
+my.mat
+apply(my.mat, 1, sum)
+apply(my.mat, 2, sum)
+```
+
+## functions
+R has many built-in functions that can ease writing programs and you can find their syntax by using `?` operator
+
+Examples:
+```{r}
+?mean
+?rownames
+?read.csv
+```
+
+
+
+## Exercise
+Write a function will return T if a given element exists in a given vector.
+
+
+## Exercise
+
+```{r}
+exists <- function(vector, element){
+  
+  for (v1 in vector) {
+    if(v1 == element){
+      return(TRUE)
+    }
+  }
+  return(FALSE)
+}
+```
+
+
+# Plots
+
+## Plots {#slideSty40}
+Plotting in R is easy:
+
+```{r}
+x = 1:10
+y = x**2
+plot(x, y)
+```
+
+## Plot {#slideSty40}
+Lets change color
+
+```{r}
+plot(x, y, col = "red")
+```
+
+## Plot {#slideSty40}
+Lets change point type
+
+```{r}
+plot(x, y, pch = 19)
+```
+
+## PCH 
+
+PCH (plotting character) is an argument to specify point shapes
+
+```{r, echo=FALSE, message=FALSE}
+d = data.frame(p = c(0:25))
+p <- ggplot() + scale_y_continuous(name = "") + scale_x_continuous(name = "")
+p <- p + scale_shape_identity()
+p <- p + geom_point(data = d, mapping = aes(x = p%%6, y = p%/%6, shape = p), 
+                    size = 5, fill = "#91bfdb", color="black")
+
+p <- p + geom_text(data = d, mapping = aes(x = p%%6, y = p%/%6 + 0.25, label = p),
+                   size = 3) + scale_y_reverse()
+p+theme_void()
+```
+
+## PCH 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-4c4e{color:#3531ff;border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <td class="tg-4c4e">pch = 0, square</td>
+    <td class="tg-4c4e">pch = 13, circle cross</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 1, circle</td>
+    <td class="tg-4c4e">pch = 14, square and triangle down</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 2, triangle point up</td>
+    <td class="tg-4c4e">pch = 15, filled square</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 3, plus</td>
+    <td class="tg-4c4e">pch = 16, filled circle</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 4, cross</td>
+    <td class="tg-4c4e">pch = 17, filled triangle point-up</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 5, diamond</td>
+    <td class="tg-4c4e">pch = 18, filled diamond</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 6, triangle point down</td>
+    <td class="tg-4c4e">pch = 19, solid circle</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 7, square cross</td>
+    <td class="tg-4c4e">pch = 20, bullet (smaller circle)</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 8, star</td>
+    <td class="tg-4c4e">pch = 21, filled circle blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 9, diamond plus</td>
+    <td class="tg-4c4e">pch = 22, filled square blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 10, circle plus</td>
+    <td class="tg-4c4e">pch = 23, filled diamond blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 11, triangles up and down</td>
+    <td class="tg-4c4e">pch = 24, filled triangle point-up blue</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">pch = 12, square plus</td>
+    <td class="tg-4c4e">pch = 25, filled triangle point down blue</td>
+  </tr>
+</table>
+
+
+## Plot {#slideSty40}
+- For PCH 21 to 25, background color can be specified
+
+```{r}
+plot(x, y, pch = 24, col="red", bg="green")
+```
+
+
+## Task
+
+- plot data points in your favorite color and shape
+
+## Plot Line {#slideSty40}
+
+The option `"type"` can change the plot type
+
+```{r}
+plot(x, y, type = "l")
+```
+
+
+## Plot type
+
+<table class="tg">
+  <tr>
+    <td class="tg-4c4e">"p"</td>
+    <td class="tg-4c4e">for points</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"l"</td>
+    <td class="tg-4c4e">for lines</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"b"</td>
+    <td class="tg-4c4e">for both</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"c"</td>
+    <td class="tg-4c4e">for the lines part alone of "b"</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"o"</td>
+    <td class="tg-4c4e">for both 'overplotted'</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"h"</td>
+    <td class="tg-4c4e">for 'histogram' like (or 'high-density') vertical lines</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"s"</td>
+    <td class="tg-4c4e">for stair steps</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"S"</td>
+    <td class="tg-4c4e">for other steps</td>
+  </tr>
+  <tr>
+    <td class="tg-4c4e">"n"</td>
+    <td class="tg-4c4e">for no plotting</td>
+  </tr>
+</table>
+
+
+## Plot {#slideSty40}
+Lets plot both point and line
+
+```{r}
+plot(x, y, type = "o")
+```
+
+## Change line type {#slideSty40}
+The option `"lty"` can change the line type
+
+```{r}
+plot(x, y, type = "o", lty=2)
+```
+
+
+## Line types in R
+```{r, echo=FALSE, message=FALSE}
+par(mar=c(0,0,0,0))
+# Set up the plotting area
+plot(NA, xlim=c(0,1), ylim=c(6.5, -0.5),
+    xaxt="n", yaxt="n",
+    xlab=NA, ylab=NA )
+# Draw the lines
+for (i in 0:6) {
+    points(c(0.25,1), c(i,i), lty=i, lwd=2, type="l")
+}
+# Add labels
+text(0, 0, "0. 'blank'"   ,  adj=c(0,.5))
+text(0, 1, "1. 'solid'"   ,  adj=c(0,.5))
+text(0, 2, "2. 'dashed'"  ,  adj=c(0,.5))
+text(0, 3, "3. 'dotted'"  ,  adj=c(0,.5))
+text(0, 4, "4. 'dotdash'" ,  adj=c(0,.5))
+text(0, 5, "5. 'longdash'",  adj=c(0,.5))
+text(0, 6, "6. 'twodash'" ,  adj=c(0,.5))
+###dev.off()
+```
+
+
+## Task
+
+- plot data points and line in your favorite color and shape 
+
+
+## Plot Title {#slideSty40}
+Give plot a title
+
+```{r}
+plot(x, y, main = "my 1st plot")
+```
+
+## Axis Name {#slideSty40}
+Change plot axis name
+
+```{r}
+plot(x, y, main = "my 1st plot", xlab = "number", ylab = "value")
+```
+
+## Adding more to a plot {#slideSty50}
+```{r}
+x = 1:10
+y = x**2
+z = y + 1
+plot(x, y, pch=19, col="red")
+```
+
+
+## Adding more to a plot {#slideSty80}
+```{r}, fig.height = 4.0,  fig.align = "center"}
+x = 1:10 
+y = x**2 
+z = y + 10
+plot(x, y, pch=19, col="red")
+lines(x, y, col="red")
+points(x, z, col="blue")
+lines(x, z, col="blue")
+```
+
+
+## Task
+
+- plot data points and line in your favorite color and shape 
+
+
+## Fixing axis limits {#slideSty60}
+- In R plots are static 
+- Adding new points can't change the axis limits
+```{r}
+plot(x, y, pch=19, col="red")
+lines(x, y, col="red")
+```
+
+
+## Fixing axis limits {#slideSty50}
+To overcome this issue specify the axis limits in advance
+```{r}
+ylimit = range(c(y,z))
+plot(x, y, col="red", pch=19, ylim = ylimit)
+lines(x, y, col="red")
+points(x, z, col="blue", pch=15)
+lines(x, z, col="blue")
+```
+
+## Adding legend {#slideSty50}
+```{r}
+plot(x, y, col="red", pch=19, ylim = c(1,110))
+lines(x, y, col="red")
+points(x, z, col="blue", pch=15)
+lines(x, z, col="blue")
+legend(1,100,legend=c("y","z"), col=c("red","blue"), pch=c(19,15))
+```
+
+
+## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors")
+```
+
+# How do we change the bar color?
+
+## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors", col="red")
+```
+
+
+# How do we change border color?
+
+## Barplot
+```{r}
+raptors = c(33,27,26,28)
+barplot(raptors, main="Toronto Raptors", col="red", border = NA)
+```
+
+
+## Barplot (Stacked) {#slideSty70}
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+data = rbind(raptors, gsw)
+colnames(data) = c("Q1", "Q2", "Q3", "Q4")
+barplot(data, col=c("red", "gold"))
+```
+
+## Barplot (Grouped)
+```{r}
+barplot(data, col=c("red", "gold"), beside=TRUE)
+```
+
+## Barplot (add legend){#slideSty70}
+```{r, fig.width= 8.0, fig.height = 6.0, fig.align = "center"}
+barplot(data, col=c("red","gold"), beside=TRUE, legend=rownames(data),
+        args.legend = list(x="topright"))
+```
+
+
+# Boxplot
+
+
+## Boxplot {#slideSty30}
+Same as barplot but data should be in column:
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+boxplot(raptors, gsw)
+```
+
+
+## Boxplot {#slideSty30}
+Add names to the box:
+```{r}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+boxplot(raptors, gsw, names=c("Raptors","GSW"))
+```
+
+
+## Boxplot (color) {#slideSty30}
+Here HTML color codes are used: 
+```{r}
+boxplot(raptors, gsw, names=c("Raptors", "GSW"), 
+        col=c("#d7301f","#dfc27d"), 
+        border=c("#7f0000", "#8c510a"), main="NBA Finals")
+```
+
+
+## Task
+
+- Add one more boxplot with data:
+```{r}
+bucks = c(23, 28, 25, 32)
+```
+
+
+## Using formula {#slideSty50}
+Here HTML color codes are used: 
+```{r}
+bucks = c(23, 28, 25, 32)
+df=data.frame(score=c(raptors, gsw, bucks), 
+              team= c(rep("Raptors", 4), rep("GSW", 4), rep("Bucks", 4)))
+boxplot(score~team, data=df)
+```
+
+## Using formula {#slideSty50}
+Here HTML color codes are used: 
+```{r}
+bucks = c(23, 28, 25, 32)
+df=data.frame(score=c(raptors, gsw, bucks), 
+              team=c(rep("Raptors",4), rep("GSW",4), rep("Bucks",4)))
+boxplot(score~team, data=df)
+```
+
+## Task
+
+- Add one more boxplot with data:
+```{r}
+
+```
+
+
+
+## Saving Plots for Publication
+- For publications use PDF or PNG format
+- To save plot, open file just before plot function
+- Don't forget to close the file using **dev.off()**
+```{r, eval=FALSE}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+bucks = c(23, 28, 25, 32)
+
+pdf("NBA_finals.pdf", width = 4, height = 5)
+
+boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"), 
+        col=c("#d7301f","#dfc27d", "#41ab5d"), 
+        border=c("#7f0000", "#8c510a", "#00441b"), main="NBA Finals")
+
+dev.off()
+```
+
+
+## Saving Plots for Publication
+- In **PNG** format, specify resolution using **res** 
+- **res** should be at least 300 for publications  and 600 for presentation
+- Also, don't forget to specify **units**
+
+```{r, eval=FALSE}
+png("figure-1.png", width = 4, height = 5, units = 'in', res = 600)
+
+boxplot(raptors, gsw, bucks, names=c("Raptors", "GSW", "Bucks"), 
+        col=c("#d7301f","#dfc27d", "#41ab5d"), 
+        border=c("#7f0000", "#8c510a", "#00441b"), main="NBA Finals")
+
+dev.off()
+```
+
+## R data
+- R comes with several inbuilt datasets
+
+```{r, eval=TRUE}
+data("iris")
+head(iris)
+```
+
+# packages
+
+## Packages
+- R comes with basic functions that you will use on a daily basis
+- Sometime you will require specialized functions, written by others
+- R package is a collection of functions and data written for a specific task
+
+## Install a package
+- To install an R package use the command **install.packages("package name")**
+- In this example, we install the package **beeswarm**
+
+```{r, eval=FALSE}
+install.packages("beeswarm")
+```
+
+## Load a package {#slideSty80}
+- Now we load the package and use a function from it
+```{r}
+library("beeswarm")
+data("iris")
+beeswarm(iris[, c("Sepal.Length", "Sepal.Width")],
+         pch = 16, col=c("red", "blue"),
+         labels = c("Sepal Length", "Sepal Width"))
+```
+
+## Finding Help
+- All functions in R are documented 
+- **?** can be used to find documents
+```{r}
+?beeswarm
+```
+
+- **??** can be used to find something anywhere in R documents
+```{r}
+??beeswarm
+```
+
+# Now find more about the function **mean**
+
+## Finding R package
+- Google the problem
+- Look into CRAN website www.cran.r-project.org/web/packages/
+- Look into Bioconductor repo www.bioconductor.org
+- ** Note:** packages at Bioconductor uses a different command to install that is:
+
+```{r, eval=FALSE}
+BiocManager::install("package name")
+```
+
+# reading and writing files
+
+## Save data {#slideSty80}
+- R can save data in different formats
+- Data can be saved in R native format
+
+```{r, eval=TRUE}
+raptors = c(33,27,26,28)
+gsw = c(32, 25, 31, 22)
+df = cbind(raptors, gsw)
+saveRDS(df, "my_data.rds")
+```
+- To read it use readRDS function
+```{r, eval=TRUE}
+mydata = readRDS("my_data.rds")
+head(mydata)
+```
+
+## Save data {#slideSty80}
+- R can save data in CSV formats
+```{r, eval=TRUE}
+write.csv(df,file="my_data.csv")
+```
+- To read it use read.csv function
+```{r, eval=TRUE}
+mydata2 = read.csv("my_data.csv", row.names = 1)
+head(mydata2)
+```
+
+## Excel files
+- R package **openxlsx** can read and write Excel files
+- Task: Install the package **openxlsx** and load it
+
+## Write excel files
+- To install the package
+```{r, eval=FALSE}
+install.packages("openxlsx")
+```
+
+- To write the Excel file
+```{r, eval=TRUE}
+library(openxlsx)
+write.xlsx(df, "myData.xlsx")
+```
+- Now open the **myData.xlsx** file, add one more row, save and close the file
+
+
+## Read excel files
+```{r, eval=TRUE}
+myxl = read.xlsx("myData.xlsx")
+head(myxl)
+```
+
+
+## Caution
+- Large Excel files may take a long time and memory to read/write
+- Use R native **RDS**  files to read and write the data during the analysis
+- To share data, prefer **CSV** format then Excel
+- Save only final results/data in Excel format
+ 
+
+
+# R Biostat. and data analysis
+
+## R Biostat. basics
+
+Useful functions:
+
+- sum(x)      --> Sums the elements in x
+- prod(x)      --> Product of the elements in x
+- max(x)      --> Maximum element in x
+- min(x)      --> Minimum element in x
+- range(x)  --> Range (min to max) of elements in x
+
+
+## R Biostat. basics
+
+Useful functions:
+
+- mean(x)   --> Mean (average value) of elements in x.
+- median(x) --> Median  (middle  value)  of  elements  in x
+- var(x)    --> Variance of elements in x
+- sd(x)        --> Standard deviation of element in x
+- cor(x,y)    --> Correlation between x and y
+- cov(x,y)    --> Covariance between x and y
+- quantile(x,p)    --> The pth quantile of x
+
+
+## R Biostat. basics
+
+Example: patients data
+
+```{r, results='hold'}
+set.seed(21341)
+patients.df <- data.frame(
+  "ID"=paste0("p",1:100)
+  ,"Gender"=factor(sample(c("F","M"),100,replace = T))
+  ,"Stage"=factor(sample(c("I","II","III","IV"),100,replace = T))
+  ,"Age"=rgamma(100,shape = 50)
+  ,"TumorVolume"=rgamma(100,shape = 10)
+  ,stringsAsFactors = F)
+
+head(patients.df)
+
+
+```
+
+## R Biostat. basics
+
+```{r}
+quantile(patients.df$Age)
+```
+
+## R Biostat. basics
+
+```{r}
+hist(patients.df$Age)
+```
+
+
+## R Biostat. basics
+
+```{r}
+summary(patients.df$Stage)
+table(patients.df$Stage)
+```
+
+## R Biostat. basics
+
+```{r}
+boxplot(Age ~ Stage, patients.df
+  , ylab="Age",xlab="Stage",main="Patients data")
+```
+
+
+## R Biostat. basics
+
+T-test and Wilcoxon rank sum test
+
+- T-test measures the difference in mean between two independent populations [assumes normal distribution]
+- Wilcoxon rank sum test measures the difference in the median between two independent populations [non-parametric]
+
+
+## R Biostat. basics
+
+```{r}
+boxplot(TumorVolume ~ Gender, patients.df
+  , ylab="TumorVolume",xlab="Gender",main="Patients data")
+```
+
+## R Biostat. basics
+
+Let's use the Wilcoxon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+
+```{r}
+  wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
+              ,y = patients.df$TumorVolume[patients.df$Gender=="F"]
+              ,mu = 0,alternative = "two.sided",paired = F,T)
+```
+
+
+## R Biostat. basics
+Let's check the correlation between Age and Tumor volume
+
+```{r}
+plot(patients.df$Age,patients.df$TumorVolume)
+```
+
+
+## R Biostat. basics
+
+- Pearson product moment correlation: The Pearson correlation evaluates the linear relationship between two continuous variables. 
+- Spearman rank-order correlation: The Spearman correlation evaluates the monotonic relationship between two continuous or ordinal variables.
+
+## R Biostat. basics
+Let's check the correlation between Age and Tumor volume
+
+```{r}
+cor.test(patients.df$Age,patients.df$TumorVolume)
+```
+
+
+
+# Project
+
+## Project
+1- Download the following file from: 
+https://drive.google.com/drive/folders/1Jqa5KxKyfYqMMkk1IOwKihOZw-IeedxT
+
+2- Find the if there is a significant difference between TNBC and nonTNBC samples based on these genes [ESR1, PGR, ERBB2] and show that in a plot.
+3- Compute the pairwise correlation between all the samples and show that in a plot. 
+
+Hint: Install and use package **corrplot**
+
+
+
+
+

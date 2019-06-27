@@ -1,0 +1,637 @@
+---
+title: "R for beginners"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# R data-types and structures
+
+## Variable
+
+A named container or storage that is used to reference a value in the code.
+
+- This value can be of many types:
+    + numeric: ```1, 2, 3.4```
+    + character: ```"a", "book", "c"```
+    + logical: ```TRUE, FALSE``` or simply ```T, F```
+    + Integers, complex, and factors
+    
+## Variable
+
+* Constraints on names:
+    + must starts with a letter or a dot not followed by a number.
+    + can only contain letters, numbers, underscore and the dot character "."
+    
+    ``` var1, .var1, var.name, v1 ```
+    
+    ``` 1v, .1v, var-1, var#1 ``` 
+
+## Variable
+
+```<-``` and ```=``` are used for assignment of values in R 
+
+```{r}
+  x <- 2
+  y <- 3
+  x+y
+```
+
+* Note that R variables are dynamically typed
+```{r}
+  x <- 2
+  x <- "hello"
+```
+
+
+## Vector
+A `vector` is the simplest data structure in R. it represents a container for a set of elements of the same data type. 
+-  Examples:
+```{r}
+  c(1,3,5)
+  length(c("test"))
+  class(c(TRUE,TRUE,FALSE))
+```
+
+## Vector
+`c` function is used to concatenate vectors.
+```{r}
+  x <- c(1,3,5)
+  y <- c(2,4,6)
+  z <- c(x,y)
+  z
+```
+
+Remember: vectors have a single data type
+```{r}
+  x <- c(1,3,5)
+  y <- c("a","b")
+  c(x,y)
+```
+
+## Vector
+Arithmetics are performed on vectors member-by-member
+```{r}
+  x <- c(1:3) # R way to create a sequence of numbers
+  x
+  x + 1
+```
+
+## Vector
+and this extends to operations between vectors
+```{r}
+  x <- c(1,3,5)
+  y <- c(2,4,6)
+  x+y
+```
+
+## Vector
+What will happen if the two vectors are of different lengths?
+```{r, warning=FALSE}
+  x <- c(1,3,5)
+  y <- c(2,4,6,8,10)
+  z <- x+y
+```
+
+
+## Vector
+What will happen if the two vectors are of different lengths?
+```{r, warning=FALSE}
+  x <- c(1,3,5)
+  y <- c(2,4,6,8,10)
+  z <- x+y
+  z
+```
+
+## Vector
+Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign it to a variable. 
+
+Try subtracting the two vectors. What happened?
+
+## Vector
+Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign it to a variable. 
+
+Try subtracting the two vectors. What happened?
+```{r}
+x <- c(T,F,T)
+y <- c(3,4,5)
+x-y
+```
+
+logical values in R can be coerced to integers, i.e. `1` for `TRUE` and `0` for `FALSE`
+
+## Vector
+Retrieving elements from a vector is done by `indexing`
+
+-  There are many ways to use indexing and the simplest is `numeric indexing`, i.e. a number that represents the position of an element in a vector.
+
+-  `[]` is used for indexing. In R, indexing starts from `1`
+
+```{r}
+  x <- c(1,3,5,7,9)
+  x[2]
+  x[c(3,5)]
+```
+
+## Vector - Indexing
+`indexing` can be used also for changing values in a vector
+
+```{r}
+  x <- c(1,3,5,7,9)
+  x[2] <- 4 
+  x
+  x[c(3,5)] <- c(6,10)
+  x
+  x[-1] # negative indexing is used to remove elements
+```
+
+## Vector - Indexing
+Logical values can be used for `indexing` too.
+
+```{r}
+  x <- c(1,3,5,7,9)
+  x[c(T,F,T,F,T)]
+  x[c(F,F,T,F,T)] <- c(6,10)
+  x
+  y <- x[c(T,F)] # what will happen??
+```
+
+## Vector - Indexing
+Logical values can be used for `indexing` too.
+
+```{r}
+  x <- c(1,3,5,7,9)
+  y <- x[c(T,F)] # what will happen??
+  y
+```
+
+## Named Vectors 
+
+R allows us to give names to each element in a vector, and use them to index:
+```{r}
+x <- c(2,4,6,8,10)
+names(x) <- c("A", "B", "C", "D", "E")
+x
+x[c("A", "D")]
+```
+
+## Matrix
+A `matrix` is a collection of data elements arranged in a two-dimensional rectangular layout
+```{r}
+x = matrix( 
+   c(2, 4, 3, 1, 5, 7), # the data elements 
+   nrow=2,              # number of rows 
+   ncol=3)             # number of columns 
+x
+dim(x)  # return the dimensions of a matrix; #rows and #columns 
+x[2,3] # note the ',' to indiacte row and column indexing
+```
+
+## Matrix - Names
+
+Matrix can have row and/or column names:
+
+```{r}
+x <- matrix(data=1:10, nrow=2, ncol=5)
+rownames(x) <- c("A", "B")
+x
+x["B", c(2,5)]
+x["A",]
+```
+
+
+
+## Dataframe
+A `dataframe` is used for storing data tables. It represents a list of vectors of equal length and can store vectors of different types.
+
+```{r}
+patientsID = c("p1", "p2", "p3") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, NA) 
+df = data.frame(patientsID, age, alive)       # df is a data frame
+df
+```
+
+## Dataframe
+
+$ is another way to index columns in a named data.frame
+
+```{r}
+df[,"alive"]
+df$alive
+```
+
+## Dataframe
+
+```{r}
+patientsID = c("p1", "p2", "p3") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, NA) 
+df = data.frame(patientsID, age, alive)       # df is a data frame
+df$patientsID  # factor type, we will talk about it later
+df = data.frame(patientsID, age, alive, stringsAsFactors = F) 
+df$patientsID
+```
+
+
+## List
+A `list` is a generic vector that can contain multiple data types. Think of it as a vector of boxes, you can put anything in the box.
+```{r}
+x <- list(1, "a", c(TRUE, FALSE))
+x
+```
+
+
+## List - indexing
+
+One square bracket `[]` will retrieve the box, while double square brackets would unpack the box
+
+```{r}
+patientsID = c("p1", "p2", "p3", "p4", "p5") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, TRUE, NA, FALSE) 
+x <- list(patientsID,age,alive)
+x[2]
+x[[2]]
+```
+
+
+## List - indexing
+
+```{r}
+patientsID = c("p1", "p2", "p3", "p4", "p5") 
+age = c(25, 35, 55) 
+x <- list(patientsID,age)
+x[[2]][3]
+```
+
+## List - indexing
+
+Named lists provide another way to index them using the operator `$`
+
+```{r}
+patientsID = c("p1", "p2", "p3", "p4", "p5") 
+age = c(25, 35, 55) 
+x <- list("sampleID"=patientsID,"age"=age)
+x$age
+x[["sampleID"]]
+```
+
+## R data-types and structures
+
+These are the main data types and structures in R.
+
+We still need to talk about factors!
+
+# R operations
+
+## R Arithmetic operators
+
+```{r, echo=TRUE, results='hide'}
+x <- 5
+y <- 3
++ x       # 5
+- x       # -5
+x + y     # 8
+x - y     # 2
+x * y     # 15
+x / y     # 1.666667
+x ^ y     # 125 , x**y is the same 
+x %% y    # 2
+x %/% y   # 1
+```
+
+## R Relational operators
+```{r, echo=TRUE, results='hide'}
+x <- 5
+y <- 3
+x < y    # FALSE
+x > y    # TRUE
+x <= y   # FALSE
+x >= y   # TRUE
+x == y   # FALSE
+x != y   # TRUE
+
+```
+
+
+## R Logical operators
+
+```{r, echo=TRUE, results='hide'}
+x <- TRUE
+y <- FALSE
+!x       # FALSE  -- NOT
+x && y   # FALSE  -- Logical AND
+x || y   # TRUE   -- Logical OR
+```
+
+
+```{r}
+x <- c(TRUE,TRUE,FALSE)
+y <- c(TRUE,FALSE,FALSE)
+x & y   # element-wise AND
+x | y   # element-wise OR
+```
+
+# R control flow structures
+
+## if-else 
+
+This is a conditional flow structure by which the following steps of the program are dependent on the outcome of the condition.
+
+```{r}
+if(3>2){
+  print("Yes") 
+}
+```
+
+```{r}
+if(3<2){
+  print("Yes") 
+}else{
+  print("No")
+}
+```
+
+## if-else 
+
+```{r}
+if(3<2){
+  print("No") 
+}else if(3>2){
+  print("Yes")
+}else{
+  print("Maybe")
+}
+```
+
+## if-else 
+
+You can make the condition more complex
+```{r}
+x <- 5; y <- "food" 
+if(x<2 && y == "drink"){
+  print("Yes") 
+}else{
+  print("No")
+}
+```
+
+## Loops
+
+Loops are used to repeat a block of code until a condition is satisfied 
+
+There are two flow structures for loops, i.e., `for` loops and `while` loops
+
+
+## for loops
+
+The most common use is to iterate through the elements of a vector
+
+```{r}
+myVec <- c("A", "B", "C")
+for(letter in myVec){
+  print(letter)
+}
+```
+
+## for loops
+
+One can also iterate through a vector using its indices
+
+```{r}
+myVec <- c(2, 5, 21)
+for(i in 1:length(myVec)){
+  print(myVec[i] + 3)
+}
+```
+
+Note: `seq_along(myVec)` is a built-in function that might be a better option than using `1:length(myVec)`. The latter could break when `length(myVec)` is accidentally 0.
+
+## while loops
+
+Repeats executing the code enclosed while a condition is satisfied
+
+```{r}
+myVec <- c("a","b","c")
+i <- 1
+while(i <= length(myVec)){
+  print(myVec[i])
+  i <- i + 1
+}
+```
+
+## Exercise
+
+Create a R object from these vectors and return patients who are females and under the age of 30
+```{r}
+patientsID <- c("p1", "p2", "p3", "p4", "p5")
+age <- c(15, 32, 44, 25, 39)
+gender <- c("F","M","M","F","F")
+```
+
+## Exercise
+
+Create a R object from these vectors and return patients who are females and under the age of 30
+```{r}
+patientsID <- c("p1", "p2", "p3", "p4", "p5")
+age <- c(15, 32, 44, 25, 39)
+gender <- c("F","M","M","F","F")
+
+df <- data.frame(patientsID,age,gender,stringsAsFactors = F)
+df[df$gender=="F" & df$age < 30,]
+```
+
+## Exercise
+
+Create a R object from these vectors and change vector `insure` to `T` for each patient who is a female and above the age of 20
+```{r}
+patientsID <- c("p1", "p2", "p3", "p4", "p5")
+age <- c(15, 32, 44, 25, 39)
+gender <- c("F","M","M","F","F")
+insure <- c(F,F,F,F,F)
+```
+
+## Exercise
+
+Create a R object from these vectors and change vector `insure` to `T` for each patient who is a female and above the age of 20
+```{r}
+df <- data.frame(patientsID,age,gender,insure,stringsAsFactors = F)
+
+for(patientInd in 1:dim(df)[1]){
+  if(df[patientInd,"gender"]=="F" & df[patientInd,"age"]>20){
+    df[patientInd,"insure"] = T
+  }
+}
+
+df[,"insure"]
+
+```
+
+# functions
+
+## functions
+
+R does everything by copying. What do we mean by that?
+
+```{r, results="hide"}
+x <- 3
+y <- x
+x <- 2
+x
+y
+```
+
+
+## functions
+
+R does everything by copying. What do we mean by that?
+
+```{r}
+x <- 3
+y <- x
+x <- 2
+x
+y
+```
+
+
+## functions
+
+-  A `function` is a block of code that can be used multiple times. It is a way to structure the code.
+
+-  R provides many built-in functions that ease writing programs and executing codes.
+
+-  Examples: `print`, `:`, `c`, `in`
+
+## functions
+
+R also provides users with the ability to write their own custom functions
+
+```{r}
+printThanks <- function(){
+  print("Thank you very much for running this code")
+}
+
+printThanks()
+```
+
+## functions
+
+```{r}
+isEven <- function(x){
+  if(x%%2==0){
+    return(TRUE)
+  }
+  return(FALSE)
+}
+isEven(4)
+x <- isEven(3)
+x
+```
+
+## functions
+
+Variables defined inside a function are local to that function.
+
+```{r, results="hide"}
+x <- 5
+testScope <- function(x){
+  return(x+1)
+}
+testScope(4)
+testScope(x)
+x
+```
+
+## functions
+
+Variables defined inside a function are local to that function.
+
+```{r}
+x <- 5
+testScope <- function(x){
+  return(x+1)
+}
+testScope(4)
+testScope(x)
+x
+```
+
+
+
+## *apply
+
+Functions in R become super useful together with the built-in apply functions. *apply helps you apply a function to each element of a vector or row/column of a matrix. 
+
+
+There are 3 main apply functions: `lapply`, `sapply` and `apply`. `lapply` - l stands for list, will return a list. `sapply` s stands for simple, will try to simplify the list. `apply` is `sapply` for matrices and data.frames. 
+
+## sapply
+
+Here is an sapply example:
+```{r}
+isEven <- function(x){
+  if(x%%2==0){
+    return(TRUE)
+  }
+  return(FALSE)
+}
+
+myVec <- c(4,3,2,1)
+sapply(myVec, isEven)
+```
+
+## apply
+
+`apply`, unlike sapply and lapply, takes 3 arguments: the data to apply over, which dimensions to apply over, and the function to apply. 
+
+Heres a simple example, using the built-in `sum` function, which returns the sum of a vector:
+```{r, results="hold"}
+my.mat <- matrix(1:4, nrow=2, ncol=2)
+my.mat
+apply(my.mat, 1, sum)
+apply(my.mat, 2, sum)
+```
+
+## functions
+R has many built-in functions that can ease writing programs and you can find their syntax by using `?` operator
+
+Examples:
+```{r}
+?mean
+?rownames
+?read.csv
+```
+
+
+
+## Exercise
+Write a function will return T if a given element exists in a given vector.
+
+
+## Exercise
+
+```{r}
+exists <- function(vector, element){
+  
+  for (v1 in vector) {
+    if(v1 == element){
+      return(TRUE)
+    }
+  }
+  return(FALSE)
+}
+```
+
+
+
+
+
+
