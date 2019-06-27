@@ -1210,7 +1210,7 @@ patients.df <- data.frame(
   "ID"=paste0("p",1:100)
   ,"Gender"=factor(sample(c("F","M"),100,replace = T))
   ,"Stage"=factor(sample(c("I","II","III","IV"),100,replace = T))
-  ,"Age"=rgamma(100,shape = 50)
+  ,"Age"=as.integer(rgamma(100,shape = 50))
   ,"TumorVolume"=rgamma(100,shape = 10)
   ,stringsAsFactors = F)
 
@@ -1223,6 +1223,7 @@ head(patients.df)
 
 ```{r}
 quantile(patients.df$Age)
+summary(patients.df$Age)
 ```
 
 ## R Biostat. basics
@@ -1264,7 +1265,7 @@ boxplot(TumorVolume ~ Gender, patients.df
 
 ## R Biostat. basics
 
-Let's use the Wilcoxon rank sum test to see if Stage I and Stage IV patients are significantly different in regards to Tumor Volume
+Let's use the Wilcoxon rank sum test to see if female and male patients are significantly different in regards to Tumor Volume
 
 ```{r}
   wilcox.test(x = patients.df$TumorVolume[patients.df$Gender=="M"]
@@ -1294,7 +1295,6 @@ cor.test(patients.df$Age,patients.df$TumorVolume)
 ```
 
 
-
 # Project
 
 ## Project
@@ -1305,8 +1305,5 @@ https://drive.google.com/drive/folders/1Jqa5KxKyfYqMMkk1IOwKihOZw-IeedxT
 3- Compute the pairwise correlation between all the samples and show that in a plot. 
 
 Hint: Install and use package **corrplot**
-
-
-
 
 
