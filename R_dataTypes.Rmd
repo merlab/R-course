@@ -18,8 +18,8 @@ knitr::opts_chunk$set(echo = TRUE)
 A named container or storage that is used to reference a value in the code.
 
 - This value can be of many types:
-    + numeric: ```1, 2, 3```
-    + character: ```"a", "b", "c"```
+    + numeric: ```1, 2, 3.4```
+    + character: ```"a", "book", "c"```
     + logical: ```TRUE, FALSE``` or simply ```T, F```
     + Integers, complex, and factors
     
@@ -110,12 +110,12 @@ What will happen if the two vectors are of different lengths?
 ```
 
 ## Vector
-Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign to variables. 
+Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign it to a variable. 
 
 Try subtracting the two vectors. What happened?
 
 ## Vector
-Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign to variables. 
+Exercise: Create a vector of Logical values, assign it to a variable. Create a vector of Integers and assign it to a variable. 
 
 Try subtracting the two vectors. What happened?
 ```{r}
@@ -124,7 +124,7 @@ y <- c(3,4,5)
 x-y
 ```
 
-logical values in R can be coerced to integers `1` for `TRUE` and `0` for `FALSE`
+logical values in R can be coerced to integers, i.e. `1` for `TRUE` and `0` for `FALSE`
 
 ## Vector
 Retrieving elements from a vector is done by `indexing`
@@ -177,6 +177,7 @@ R allows us to give names to each element in a vector, and use them to index:
 ```{r}
 x <- c(2,4,6,8,10)
 names(x) <- c("A", "B", "C", "D", "E")
+x
 x[c("A", "D")]
 ```
 
@@ -201,6 +202,40 @@ rownames(x) <- c("A", "B")
 x
 x["B", c(2,5)]
 x["A",]
+```
+
+
+
+## Dataframe
+A `dataframe` is used for storing data tables. It represents a list of vectors of equal length and can store vectors of different types.
+
+```{r}
+patientsID = c("p1", "p2", "p3") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, NA) 
+df = data.frame(patientsID, age, alive)       # df is a data frame
+df
+```
+
+## Dataframe
+
+$ is another way to index columns in a named data.frame
+
+```{r}
+df[,"alive"]
+df$alive
+```
+
+## Dataframe
+
+```{r}
+patientsID = c("p1", "p2", "p3") 
+age = c(25, 35, 55) 
+alive = c(TRUE, FALSE, NA) 
+df = data.frame(patientsID, age, alive)       # df is a data frame
+df$patientsID  # factor type, we will talk about it later
+df = data.frame(patientsID, age, alive, stringsAsFactors = F) 
+df$patientsID
 ```
 
 
@@ -242,33 +277,9 @@ Named lists provide another way to index them using the operator `$`
 ```{r}
 patientsID = c("p1", "p2", "p3", "p4", "p5") 
 age = c(25, 35, 55) 
-x <- list(patientsID,age)
+x <- list("sampleID"=patientsID,"age"=age)
 x$age
-x[["patientsID"]]
-```
-
-## Dataframe
-A `dataframe` is used for storing data tables. It represents a list of vectors of equal length.
-
-```{r}
-patientsID = c("p1", "p2", "p3") 
-age = c(25, 35, 55) 
-alive = c(TRUE, FALSE, NA) 
-df = data.frame(patientsID, age, alive)       # df is a data frame
-df
-df$alive
-```
-
-## Dataframe
-
-```{r}
-patientsID = c("p1", "p2", "p3") 
-age = c(25, 35, 55) 
-alive = c(TRUE, FALSE, NA) 
-df = data.frame(patientsID, age, alive)       # df is a data frame
-df$patientsID  # factor type, we will talk about it later
-df = data.frame(patientsID, age, alive, stringsAsFactors = F) 
-df$patientsID
+x[["sampleID"]]
 ```
 
 ## R data-types and structures
@@ -468,11 +479,11 @@ df[,"insure"]
 R does everything by copying. What do we mean by that?
 
 ```{r, results="hide"}
-a <- 3
-b <- a
-a <- 2
-a
-b
+x <- 3
+y <- x
+x <- 2
+x
+y
 ```
 
 
@@ -481,11 +492,11 @@ b
 R does everything by copying. What do we mean by that?
 
 ```{r}
-a <- 3
-b <- a
-a <- 2
-a
-b
+x <- 3
+y <- x
+x <- 2
+x
+y
 ```
 
 
