@@ -384,6 +384,33 @@ bucks = c(23, 28, 25, 32)
 ```
 
 
+## Using formula {#slideSty50}
+Here HTML color codes are used: 
+```{r}
+bucks = c(23, 28, 25, 32)
+df=data.frame(score=c(raptors, gsw, bucks), 
+              team= c(rep("Raptors", 4), rep("GSW", 4), rep("Bucks", 4)))
+boxplot(score~team, data=df)
+```
+
+## Using formula {#slideSty50}
+Here HTML color codes are used: 
+```{r}
+bucks = c(23, 28, 25, 32)
+df=data.frame(score=c(raptors, gsw, bucks), 
+              team=c(rep("Raptors",4), rep("GSW",4), rep("Bucks",4)))
+boxplot(score~team, data=df)
+```
+
+## Task
+
+- Add one more boxplot with data:
+```{r}
+
+```
+
+
+
 ## Saving Plots for Publication
 - For publications use PDF or PNG format
 - To save plot, open file just before plot function
@@ -419,4 +446,3 @@ dev.off()
 ```
 
 
-## talk about ~
