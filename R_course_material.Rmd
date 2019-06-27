@@ -1292,11 +1292,14 @@ cor.test(patients.df$Age,patients.df$TumorVolume)
 
 ## Project
 
-Download the following file from:
+## Project
+1- Download the following file from: 
+https://drive.google.com/drive/folders/1Jqa5KxKyfYqMMkk1IOwKihOZw-IeedxT
 
-1- Find the if there is a significant difference between TNBC and nonTNBC samples based on these genes [ESR1, PGR, ERBB2] and show that in a plot.  
-2- Compute the pairwise correlation between all the samples and show that in a plot. [hint: use `corrplot` package]
+2- Find the if there is a significant difference between TNBC and nonTNBC samples based on these genes [ESR1, PGR, ERBB2] and show that in a plot.
+3- Compute the pairwise correlation between all the samples and show that in a plot. 
 
+Hint: Install and use package **corrplot**
 
 
 
